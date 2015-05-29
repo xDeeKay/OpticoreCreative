@@ -1,0 +1,55 @@
+mysql:
+  user: user
+  port: 3306
+  password: pass
+  host: localhost
+  database: database
+PersonalWorlds: ''
+spleef:
+  world: Spleef
+  timer: 60
+  floor:
+    blocktype: 35
+    blockdata: 0
+    corner1:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    corner2:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+  pit:
+    corner1:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    corner2:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+  players:
+    player1:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      yaw: 180.0
+      pitch: 0.0
+    player2:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      yaw: 180.0
+      pitch: 0.0
+    player3:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      yaw: 180.0
+      pitch: 0.0
+    player4:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      yaw: 180.0
+      pitch: 0.0

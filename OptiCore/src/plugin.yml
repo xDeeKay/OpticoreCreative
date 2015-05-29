@@ -1,0 +1,186 @@
+name: Opticore
+version: Comedic Kangaroo
+description: Opticraft Creative mumbo jumbo.
+author: xDeeKay
+main: net.dkcraft.opticore.Main
+depend: [Essentials, Votifier, LogBlock]
+commands:
+    aliases:
+        description: List a players aliases.
+        usage: /aliases <player>
+        permission: opticore.aliases
+        permission-message: You do not have permission to do that.
+    channel:
+        description: Manages channels.
+        aliases: ch
+        usage: /channel <channel>
+        permission: opticore.channel
+        permission-message: You do not have permission to do that.
+    classic:
+        description: Toggles Classic inventory mode.
+        usage: /classic
+    deafen:
+        description: Toggles player chat.
+        usage: /deafen
+        permission: opticore.deafen
+        permission-message: You do not have permission to do that.
+    freeze:
+        description: Freezes/unfreezes a player.
+        usage: /freeze <player> [reason]
+        permission: opticore.freeze
+        permission-message: You do not have permission to do that.
+    ipcheck:
+        description: List a players ip history.
+        usage: /ipcheck <player>
+        permission: opticore.ipcheck
+        permission-message: You do not have permission to do that.
+    msg:
+        description: Send a message directly to a player.
+        aliases: [tell, m, t, whisper]
+        usage: /msg <player> <message>
+        permission: opticore.msg
+        permission-message: You do not have permission to do that.
+    paint:
+        description: Toggles paint mode.
+        aliases: optipaint
+        usage: /paint
+        permission: opticore.paint
+        permission-message: You do not have permission to do that.
+    personalworld:
+        description: Manages personal worlds.
+        aliases: pw
+        usage: /personalworld <args>
+        permission: opticore.personalworld
+        permission-message: You do not have permission to do that.
+    r:
+        description: Reply to a players message.
+        aliases: reply
+        usage: /r <message>
+        permission: opticore.msg
+        permission-message: You do not have permission to do that.
+    ranks:
+        description: Displays server ranks.
+        usage: /ranks
+        permission: opticore.ranks
+        permission-message: You do not have permission to do that.
+    socialspy:
+        description: Spy on players messages.
+        usage: /socialspy
+        permission: opticore.socialspy
+        permission-message: You do not have permission to do that.
+    spleef:
+        description: Join the spleef queue.
+        usage: /spleef
+        permission: opticore.spleef
+        permission-message: You do not have permission to do that.
+    spleefmanage:
+        description: Manages spleef options.
+        aliases: sm
+        usage: /spleefmanage <args>
+        permission: opticore.spleefmanage
+        permission-message: You do not have permission to do that.
+    staffchat:
+        description: Toggles talking in staff chat.
+        aliases: [sc, staff]
+        usage: /staffchat
+        permission: opticore.staffchat
+        permission-message: You do not have permission to do that.
+    stats:
+        description: Displays a players statistics.
+        usage: /stats <player>
+        permission: opticore.stats
+        permission-message: You do not have permission to do that.
+    togglenotifications:
+        description: Toggles world notifications.
+        aliases: tn
+        usage: /togglenotifications
+        permission: opticore.togglenotifications
+        permission-message: You do not have permission to do that.
+permissions:
+   opticore.build.*:
+     description: Gives access to all build levels.
+     children:
+       opticore.build.guest: true
+       opticore.build.member: true
+       opticore.build.recruit: true
+       opticore.build.builder: true
+       opticore.build.crafter: true
+       opticore.build.operator: true
+       opticore.build.admin: true
+       opticore.build.owner: true
+       opticore.build.lobby: true
+       opticore.build.terrain: true
+       opticore.build.spleef: true
+   opticore.build.guest:
+     description: Guest build level.
+   opticore.build.member:
+     description: Member build level.
+   opticore.build.recruit:
+     description: Recruit build level.
+   opticore.build.builder:
+     description: Builder build level.
+   opticore.build.crafter:
+     description: Crafter build level.
+   opticore.build.operator:
+     description: Operator build level.
+   opticore.build.admin:
+     description: Admin build level.
+   opticore.build.owner:
+     description: Owner build level.
+   opticore.build.lobby:
+     description: Lobby build level.
+   opticore.build.terrain:
+     description: Terrain build level.
+   opticore.build.spleef:
+     description: Spleef build level.
+   opticore.use.*:
+     description: Access to all restricted items.
+     children:
+       opticore.use.fire: true
+       opticore.use.water: true
+       opticore.use.lava: true
+       opticore.use.redstonetorch: true
+       opticore.use.redstone: true
+       opticore.use.vehicle: true
+       opticore.use.bonemeal: true
+   opticore.use.fire:
+     description: Access to fire.
+   opticore.use.water:
+     description: Access to water.
+   opticore.use.lava:
+     description: Access to lava.
+   opticore.use.redstonetorch:
+     description: Access to redstonetorch.
+   opticore.use.redstone:
+     description: Access to redstone.
+   opticore.use.vehicle:
+     description: Access to vehicles.
+   opticore.use.bonemeal:
+     description: Access to bonemeal on saplings.
+   opticore.bypass.*:
+     description: Bypass all chat restrictions.
+     children:
+       opticore.bypass.chatrepeat: true
+       opticore.bypass.caps: true
+   opticore.bypass.chatrepeat:
+     description: Bypass chat repeat restriction.
+   opticore.bypass.caps:
+     description: Bypass chat caps restriction.
+   opticore.personalworld.*:
+     description: Access to all personal world features.
+     children:
+       opticore.personalworld.create: true
+       opticore.personalworld.addmember: true
+       opticore.personalworld.removemember: true
+       opticore.personalworld.listmembers: true
+       opticore.personalworld.bypass: true
+   opticore.personalworld.create:
+     description: Access to personal world create command.
+   opticore.personalworld.addmember:
+     description: Access to personal world addmember command.
+   opticore.personalworld.removemember:
+     description: Access to personal world removemember command.
+   opticore.personalworld.listmembers:
+     description: Access to personal world listmembers command.
+   opticore.personalworld.bypass:
+     description: Bypass personal world build restrictions.
