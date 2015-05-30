@@ -143,6 +143,7 @@ permissions:
        opticore.use.redstone: true
        opticore.use.vehicle: true
        opticore.use.bonemeal: true
+       opticore.use.book: true
    opticore.use.fire:
      description: Access to fire.
    opticore.use.water:
@@ -157,6 +158,8 @@ permissions:
      description: Access to vehicles.
    opticore.use.bonemeal:
      description: Access to bonemeal on saplings.
+   opticore.use.book:
+     description: Access to open written book.
    opticore.bypass.*:
      description: Bypass all chat restrictions.
      children:

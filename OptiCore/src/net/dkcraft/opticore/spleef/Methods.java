@@ -1,10 +1,14 @@
 package net.dkcraft.opticore.spleef;
 
+import java.util.Random;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffect;
@@ -247,12 +251,25 @@ public class Methods {
 		int blockType = plugin.getConfig().getInt("spleef.floor.blocktype");
 		int blockData = plugin.getConfig().getInt("spleef.floor.blockdata");
 
-
+		
 		for (int x = x1; x <= x2; x++) {
 			for (int y = y1; y <= y2; y++) {
 				for (int z = z1; z <= z2; z++) {
 					//world.getBlockAt(x, y, z).setTypeId(plugin.getConfig().getInt("spleef.floor.block"));
-					world.getBlockAt(x, y, z).setTypeIdAndData(blockType, (byte) blockData, true);
+					if (plugin.getConfig().getBoolean("spleef.floor.rainbow") == true) {
+						
+						Random object = new Random();
+						int num;
+						
+						Block block = world.getBlockAt(x, y, z);
+					    block.setType(Material.WOOL);
+					    for (int counter =1; counter <=1; counter++) {
+					    	num = 1 + object.nextInt(15);
+					    	block.setData((byte)num);
+					    }
+					} else {
+						world.getBlockAt(x, y, z).setTypeIdAndData(blockType, (byte) blockData, true);
+					}
 				}
 			}
 		}

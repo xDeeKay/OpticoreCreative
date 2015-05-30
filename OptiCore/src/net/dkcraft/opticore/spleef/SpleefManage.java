@@ -200,6 +200,18 @@ public class SpleefManage implements CommandExecutor {
 							cs.sendMessage(Syntax.USAGE_INCORRECT + "/spleefmanage floor block <block int id>");
 						}
 					}
+				} else if (args[1].equalsIgnoreCase("rainbow")) {
+					if (args[2].equalsIgnoreCase("on")) {
+						plugin.getConfig().set("spleef.floor.rainbow", true);
+						plugin.saveConfig();
+						cs.sendMessage(ChatColor.DARK_RED + "R" + ChatColor.RED + "a" + ChatColor.GOLD + "i" + ChatColor.YELLOW + "n" + ChatColor.DARK_GREEN + "b" + ChatColor.GREEN + "o" + ChatColor.BLUE + "w " + ChatColor.AQUA + "o" + ChatColor.LIGHT_PURPLE + "n " + ChatColor.DARK_PURPLE + ":D");
+					} else if (args[2].equalsIgnoreCase("off")) {
+						plugin.getConfig().set("spleef.floor.rainbow", false);
+						cs.sendMessage(ChatColor.GREEN + "Rainbow off. :(");
+						plugin.saveConfig();
+					} else {
+						cs.sendMessage(Syntax.USAGE_INCORRECT + "/spleefmanage floor rainbow <on/off>");
+					}
 				}
 			} else {
 				cs.sendMessage(Syntax.USAGE_INCORRECT + "/spleefmanage world/timer/floor/pit/players");

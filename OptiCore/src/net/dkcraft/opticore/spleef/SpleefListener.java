@@ -243,6 +243,10 @@ public class SpleefListener implements Listener {
 		if (plugin.spleefInventory.containsKey(player.getName())) {
 			methods.restorePlayerInventory(player, inventory);
 		}
+		
+		if (plugin.spleefArmor.containsKey(player.getName())) {
+			methods.restorePlayerArmor(player, inventory);
+		}
 	}
 
 	@EventHandler

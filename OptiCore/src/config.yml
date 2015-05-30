@@ -11,6 +11,7 @@ spleef:
   floor:
     blocktype: 35
     blockdata: 0
+    rainbow: false
     corner1:
       x: 0.0
       y: 0.0
