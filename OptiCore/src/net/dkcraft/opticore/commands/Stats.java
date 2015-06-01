@@ -140,15 +140,15 @@ public class Stats implements CommandExecutor {
 								}
 
 								if (resSpleefWins.getString("spleef_wins") == null) {
-									cs.sendMessage(ChatColor.GREEN + " Spleef Wins: " + ChatColor.YELLOW + "0");
+									cs.sendMessage(ChatColor.GREEN + " Spleef wins: " + ChatColor.YELLOW + "0");
 								} else {
-									cs.sendMessage(ChatColor.GREEN + " Spleef Wins: " + ChatColor.YELLOW + resSpleefWins.getInt("spleef_wins"));
+									cs.sendMessage(ChatColor.GREEN + " Spleef wins: " + ChatColor.YELLOW + resSpleefWins.getInt("spleef_wins"));
 								}
 
 								if (resSpleefLosses.getString("spleef_losses") == null) {
-									cs.sendMessage(ChatColor.GREEN + " Spleef Losses: " + ChatColor.YELLOW + "0");
+									cs.sendMessage(ChatColor.GREEN + " Spleef losses: " + ChatColor.YELLOW + "0");
 								} else {
-									cs.sendMessage(ChatColor.GREEN + " Spleef Losses: " + ChatColor.YELLOW + resSpleefLosses.getInt("spleef_losses"));
+									cs.sendMessage(ChatColor.GREEN + " Spleef losses: " + ChatColor.YELLOW + resSpleefLosses.getInt("spleef_losses"));
 								}
 							} catch (SQLException e) {
 								e.printStackTrace();

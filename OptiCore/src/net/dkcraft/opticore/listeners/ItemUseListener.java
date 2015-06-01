@@ -3,6 +3,7 @@ package net.dkcraft.opticore.listeners;
 import net.dkcraft.opticore.Main;
 import net.dkcraft.opticore.util.Syntax;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -25,7 +26,7 @@ public class ItemUseListener implements Listener {
 		Material hand = player.getItemInHand().getType();
 		Action action = event.getAction();
 		Block block = event.getClickedBlock();
-		
+
 		if (hand.equals(Material.FLINT_AND_STEEL) || (hand.equals(Material.FIREBALL))) {
 			if (!player.hasPermission("opticore.use.fire")) {
 				if (action == Action.RIGHT_CLICK_BLOCK || action == Action.RIGHT_CLICK_AIR) {
@@ -85,7 +86,7 @@ public class ItemUseListener implements Listener {
 				}
 			}
 		}
-		
+
 		if (hand.equals(Material.INK_SACK) && player.getItemInHand().getDurability() == 15) {
 			if (!player.hasPermission("opticore.use.bonemeal")) {
 				if (action == Action.RIGHT_CLICK_BLOCK) {
@@ -96,9 +97,45 @@ public class ItemUseListener implements Listener {
 				}
 			}
 		}
-		
+
+		if (hand.equals(Material.BOOK_AND_QUILL)) {
+			if (!player.hasPermission("opticore.use.book")) {
+				if (action == Action.RIGHT_CLICK_BLOCK || action == Action.RIGHT_CLICK_AIR) {
+					player.sendMessage(ChatColor.RED + "Warning: signing this book will prevent you from opening it.");
+					player.sendMessage(ChatColor.RED + "If you accidently sign it, use /convertbook to convert it back.");
+				}
+			}
+		}
+
 		if (hand.equals(Material.WRITTEN_BOOK)) {
 			if (!player.hasPermission("opticore.use.book")) {
+				if (action == Action.RIGHT_CLICK_BLOCK || action == Action.RIGHT_CLICK_AIR) {
+					player.sendMessage(Syntax.ITEM_USE);
+					event.setCancelled(true);
+				}
+			}
+		}
+		
+		if (hand.equals(Material.COMMAND) || hand.equals(Material.COMMAND_MINECART)) {
+			if (!player.hasPermission("opticore.use.commandblock")) {
+				if (action == Action.RIGHT_CLICK_BLOCK || action == Action.RIGHT_CLICK_AIR) {
+					player.sendMessage(Syntax.ITEM_USE);
+					event.setCancelled(true);
+				}
+			}
+		}
+
+		if (hand.equals(Material.BARRIER)) {
+			if (!player.hasPermission("opticore.use.barrier")) {
+				if (action == Action.RIGHT_CLICK_BLOCK || action == Action.RIGHT_CLICK_AIR) {
+					player.sendMessage(Syntax.ITEM_USE);
+					event.setCancelled(true);
+				}
+			}
+		}
+		
+		if (hand.equals(Material.DRAGON_EGG)) {
+			if (!player.hasPermission("opticore.use.dragonegg")) {
 				if (action == Action.RIGHT_CLICK_BLOCK || action == Action.RIGHT_CLICK_AIR) {
 					player.sendMessage(Syntax.ITEM_USE);
 					event.setCancelled(true);

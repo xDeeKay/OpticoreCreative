@@ -13,40 +13,36 @@ import org.bukkit.entity.Player;
 public class Spleef implements CommandExecutor {
 
 	public Main plugin;
-	private Methods methods;
-	private NewSpleefRunnable spleefCountDown;
+	private SpleefMethods spleef;
+	private SpleefRunnable spleefRunnable;
 
 	public Spleef(Main plugin) {
 		this.plugin = plugin;
-		this.methods = this.plugin.methods;
-		this.spleefCountDown = this.plugin.spleefCountDown;
+		this.spleef = this.plugin.spleef;
+		this.spleefRunnable = this.plugin.spleefRunnable;
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player player = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("spleef")) {
 			if (args.length == 0) {
-				if (!methods.isInQueue(player)) {
-					if (methods.getQueueSize() == 0) {
-						methods.addPlayerToQueue(player);
+				if (!spleef.isInQueue(player)) {
+					if (spleef.getQueueSize() == 0) {
+						spleef.addPlayerToQueue(player);
 						player.sendMessage(ChatColor.GREEN + "Need minimum " + ChatColor.YELLOW + "1" + ChatColor.GREEN + " more player to start.");
-					} else if (methods.getQueueSize() == 1) {
-						methods.addPlayerToQueue(player);
-						methods.sendQueuePlayerMessage(methods.playerJoinQueueMessage(player));
+					} else if (spleef.getQueueSize() == 1) {
+						spleef.addPlayerToQueue(player);
+						spleef.sendQueuePlayerMessage(spleef.playerJoinQueueMessage(player));
 
 						if (plugin.spleefGame.size() == 0) {
 							for (String spleefPlayers : plugin.spleefQueue) {
 								@SuppressWarnings("deprecation")
 								Player players = Bukkit.getServer().getPlayer(spleefPlayers);
 
-								players.sendMessage(ChatColor.GREEN + "Spleef game will start in " + ChatColor.YELLOW + methods.timeToStart() + ChatColor.GREEN + " seconds.");
+								players.sendMessage(ChatColor.GREEN + "Spleef game will start in " + ChatColor.YELLOW + spleef.timeToStart() + ChatColor.GREEN + " seconds.");
 							}
 							//start SpleefRunnable
-							
-							spleefCountDown.startCountDown(methods.timeToStart() * 20);
-							
-							//BukkitTask spleefRunnable = new SpleefRunnable(this.plugin, location, inventory, 2).runTaskTimer(this.plugin, methods.timeToStart() * 20, 0);
-							//new SpleefRunnable(this.plugin, location, inventory).runTaskLater(this.plugin, methods.timeToStart() * 20);
+							spleefRunnable.startCountDown(spleef.timeToStart() * 20);
 							
 						} else {
 							for (String spleefPlayers : plugin.spleefQueue) {
@@ -56,20 +52,20 @@ public class Spleef implements CommandExecutor {
 								players.sendMessage(ChatColor.RED + "A spleef game is already in progress. Your game will start shortly.");
 							}
 						}
-					} else if (methods.getQueueSize() == 2) {
-						methods.addPlayerToQueue(player);
-						methods.sendQueuePlayerMessage(methods.playerJoinQueueMessage(player));
+					} else if (spleef.getQueueSize() == 2) {
+						spleef.addPlayerToQueue(player);
+						spleef.sendQueuePlayerMessage(spleef.playerJoinQueueMessage(player));
 
-					} else if (methods.getQueueSize() == 3) {
-						methods.addPlayerToQueue(player);
-						methods.sendQueuePlayerMessage(methods.playerJoinQueueMessage(player));
+					} else if (spleef.getQueueSize() == 3) {
+						spleef.addPlayerToQueue(player);
+						spleef.sendQueuePlayerMessage(spleef.playerJoinQueueMessage(player));
 
-						if (methods.getGameSize() == 0) {
+						if (spleef.getGameSize() == 0) {
 							//canel current runnable
-							spleefCountDown.stopCountDown();
+							spleefRunnable.stopCountDown();
 
 							//instantly start new runnable
-							spleefCountDown.startCountDown(0);
+							spleefRunnable.startCountDown(0);
 
 						} else {
 							for (String spleefPlayers : plugin.spleefQueue) {
@@ -79,7 +75,7 @@ public class Spleef implements CommandExecutor {
 								players.sendMessage(ChatColor.RED + "A spleef game is already in progress. Your game will start shortly.");
 							}
 						}
-					} else if (methods.getQueueSize() == 4) {
+					} else if (spleef.getQueueSize() == 4) {
 						player.sendMessage(ChatColor.RED + "The spleef queue is full, please try again soon.");
 					}
 				} else {

@@ -1,7 +1,7 @@
 package net.dkcraft.opticore.stats;
 
 import net.dkcraft.opticore.Main;
-import net.dkcraft.opticore.spleef.Methods;
+import net.dkcraft.opticore.spleef.SpleefMethods;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,11 +16,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class StatsListener implements Listener {
 
 	public Main plugin;
-	private Methods methods;
+	private SpleefMethods spleef;
 
 	public StatsListener(Main plugin) {
 		this.plugin = plugin;
-		this.methods = this.plugin.methods;
+		this.spleef = this.plugin.spleef;
 	}
 
 	@EventHandler
@@ -95,7 +95,7 @@ public class StatsListener implements Listener {
 		new TimeOnlineHandler(this.plugin, playerName, uuid).runTaskAsynchronously(this.plugin);
 
 		// +1 to spleef_losses
-		if (methods.isInGame(player)) {
+		if (spleef.isInGame(player)) {
 			if (plugin.spleefLosses.containsKey(playerName)) {
 				plugin.spleefLosses.put(playerName, plugin.spleefLosses.get(playerName) + 1);
 			} else {

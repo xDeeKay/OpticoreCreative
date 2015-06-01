@@ -19,6 +19,13 @@ commands:
     classic:
         description: Toggles Classic inventory mode.
         usage: /classic
+        permission: opticore.classic
+        permission-message: You do not have permission to do that.
+    convertbook:
+        description: Converts a written book back to book and quill.
+        usage: /convertbook
+        permission: opticore.convertbook
+        permission-message: You do not have permission to do that.
     deafen:
         description: Toggles player chat.
         usage: /deafen
@@ -144,6 +151,9 @@ permissions:
        opticore.use.vehicle: true
        opticore.use.bonemeal: true
        opticore.use.book: true
+       opticore.use.commandblock: true
+       opticore.use.barrier: true
+       opticore.use.dragonegg: true
    opticore.use.fire:
      description: Access to fire.
    opticore.use.water:
@@ -160,6 +170,12 @@ permissions:
      description: Access to bonemeal on saplings.
    opticore.use.book:
      description: Access to open written book.
+   opticore.use.commandblock:
+     description: Access commandblock.
+   opticore.use.barrier:
+     description: Access to barrier.
+   opticore.use.dragonegg:
+     description: Access to dragonegg.
    opticore.bypass.*:
      description: Bypass all chat restrictions.
      children:

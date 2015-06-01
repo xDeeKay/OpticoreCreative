@@ -15,15 +15,13 @@ import org.bukkit.inventory.PlayerInventory;
 public class SpleefManage implements CommandExecutor {
 
 	public Main plugin;
-	private Methods methods;
-	private NewSpleefRunnable spleefCountDown;
-	//private Location location;
-	//private Inventory inventory;
+	private SpleefMethods spleef;
+	private SpleefRunnable spleefRunnable;
 	
 	public SpleefManage(Main plugin) {
 		this.plugin = plugin;
-		this.methods = this.plugin.methods;
-		this.spleefCountDown = this.plugin.spleefCountDown;
+		this.spleef = this.plugin.spleef;
+		this.spleefRunnable = this.plugin.spleefRunnable;
 	}
 
 	public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
@@ -64,15 +62,13 @@ public class SpleefManage implements CommandExecutor {
 				cs.sendMessage(ChatColor.GREEN + "Possible 'players' options: player1, player2, player3, player4");
 
 			} else if (args[0].equalsIgnoreCase("forcestart")) {
-				if (methods.getQueueSize() >= 2 && methods.getGameSize() == 0) {
+				if (spleef.getQueueSize() >= 2 && spleef.getGameSize() == 0) {
 
 					//cancel current runnable
-					//Bukkit.getScheduler().cancelAllTasks();
-					spleefCountDown.stopCountDown();
+					spleefRunnable.stopCountDown();
 					
 					//instantly start new runnable
-					//new SpleefRunnable(this.plugin, location, inventory).run();
-					spleefCountDown.startCountDown(0);
+					spleefRunnable.startCountDown(0);
 					cs.sendMessage(ChatColor.GREEN + "Force started the game.");
 
 				} else {
@@ -80,40 +76,40 @@ public class SpleefManage implements CommandExecutor {
 				}
 
 			} else if (args[0].equalsIgnoreCase("forcestop")) {
-				if (methods.getGameSize() >= 1) {
+				if (spleef.getGameSize() >= 1) {
 					for (String spleefPlayers : plugin.spleefGame) {
 						@SuppressWarnings("deprecation")
 						Player players = Bukkit.getServer().getPlayer(spleefPlayers);
 
 						Location location = plugin.spleefLocation.get(spleefPlayers);
 						PlayerInventory inventory = players.getInventory();
-						methods.preparePlayerFinish(players, location, inventory);
-						methods.resetFloor();
+						spleef.preparePlayerFinish(players, location, inventory);
+						spleef.resetFloor();
 					}
-					methods.clearGame();
+					spleef.clearGame();
 					cs.sendMessage(ChatColor.GREEN + "Force stopped the game.");
 				} else {
 					cs.sendMessage(ChatColor.RED + "Not enough players in game.");
 				}
 
 			} else if (args[0].equalsIgnoreCase("clearqueue")) {
-				if (methods.getQueueSize() >= 1) {
-					methods.clearQueue();
+				if (spleef.getQueueSize() >= 1) {
+					spleef.clearQueue();
 					cs.sendMessage(ChatColor.GREEN + "Cleared the queue.");
 				} else {
 					cs.sendMessage(ChatColor.RED + "Not enough players in queue.");
 				}
 
 			} else if (args[0].equalsIgnoreCase("cleargame")) {
-				if (methods.getGameSize() >= 1) {
-					methods.clearGame();
+				if (spleef.getGameSize() >= 1) {
+					spleef.clearGame();
 					cs.sendMessage(ChatColor.GREEN + "Cleared the game.");
 				} else {
 					cs.sendMessage(ChatColor.RED + "Not enough players in game.");
 				}
 
 			} else if (args[0].equalsIgnoreCase("resetfloor")) {
-				methods.resetFloor();
+				spleef.resetFloor();
 				cs.sendMessage(ChatColor.GREEN + "Reset floor.");
 			}
 
@@ -128,7 +124,7 @@ public class SpleefManage implements CommandExecutor {
 				plugin.saveConfig();
 				cs.sendMessage(ChatColor.GREEN + "Set spleef world.");
 			} else if (args[0].equalsIgnoreCase("timer")) {
-				if (methods.isInt(entry)) {
+				if (spleef.isInt(entry)) {
 					plugin.getConfig().set("spleef.timer", Integer.parseInt(entry));
 					plugin.saveConfig();
 					cs.sendMessage(ChatColor.GREEN + "Set spleef timer.");
@@ -182,7 +178,7 @@ public class SpleefManage implements CommandExecutor {
 						String blockData = parts[1];
 						//int partsLength = parts.length;
 
-						if (methods.isInt(blockType) && methods.isInt(blockData)) {
+						if (spleef.isInt(blockType) && spleef.isInt(blockData)) {
 							plugin.getConfig().set("spleef.floor.blocktype", Integer.parseInt(blockType));
 							plugin.getConfig().set("spleef.floor.blockdata", Integer.parseInt(blockData));
 							plugin.saveConfig();
@@ -191,7 +187,7 @@ public class SpleefManage implements CommandExecutor {
 							cs.sendMessage(Syntax.USAGE_INCORRECT + "/spleefmanage floor block <block int id>");
 						}
 					} else {
-						if (methods.isInt(block)) {
+						if (spleef.isInt(block)) {
 							plugin.getConfig().set("spleef.floor.blocktype", Integer.parseInt(block));
 							plugin.getConfig().set("spleef.floor.blockdata", 0);
 							plugin.saveConfig();

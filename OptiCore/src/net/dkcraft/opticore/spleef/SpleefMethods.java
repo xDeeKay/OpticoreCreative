@@ -15,14 +15,14 @@ import org.bukkit.potion.PotionEffect;
 
 import net.dkcraft.opticore.Main;
 
-public class Methods {
+public class SpleefMethods {
 
 	public Main plugin;
 
 	private ChatColor YELLOW = ChatColor.YELLOW;
 	private ChatColor GREEN = ChatColor.GREEN;
 
-	public Methods(Main plugin) {
+	public SpleefMethods(Main plugin) {
 		this.plugin = plugin;
 	}
 

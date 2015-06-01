@@ -30,7 +30,7 @@ public class ItemDropListener implements Listener {
 
 	@EventHandler
 	public void onPlayerDropItem(PlayerDropItemEvent event) {
-		event.getItemDrop().remove();
+		event.setCancelled(true);
 	}
 
 	@EventHandler

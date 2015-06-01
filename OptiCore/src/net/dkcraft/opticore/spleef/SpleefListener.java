@@ -30,21 +30,19 @@ import org.bukkit.inventory.PlayerInventory;
 public class SpleefListener implements Listener {
 
 	public Main plugin;
-	private Methods methods;
-	private NewSpleefRunnable spleefCountDown;
-	//private Location location3;
-	//private Inventory inventory3;
+	private SpleefMethods spleef;
+	private SpleefRunnable spleefRunnable;
 
 	public SpleefListener(Main plugin) {
 		this.plugin = plugin;
-		this.methods = this.plugin.methods;
-		this.spleefCountDown = this.plugin.spleefCountDown;
+		this.spleef = this.plugin.spleef;
+		this.spleefRunnable = this.plugin.spleefRunnable;
 	}
 
 	@EventHandler
 	public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
 		Player player = event.getPlayer();
-		if (methods.isInGame(player)) {
+		if (spleef.isInGame(player)) {
 			player.sendMessage(ChatColor.RED + "You can't run commands while playing spleef.");
 			event.setCancelled(true);
 		}
@@ -66,18 +64,15 @@ public class SpleefListener implements Listener {
 		Location corner1 = new Location(world, corner1x, corner1y, corner1z);
 		Location corner2 = new Location(world, corner2x, corner2y, corner2z);
 
-		if (methods.isInGame(player)) {
-			if (methods.pit(player.getLocation(), corner1, corner2) == true) {
-				//if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockY() == event.getTo().getBlockY() && event.getFrom().getBlockZ() == event.getTo().getBlockZ()) {
-				//	return;
-				//}
+		if (spleef.isInGame(player)) {
+			if (spleef.pit(player.getLocation(), corner1, corner2) == true) {
 
 				Location location = plugin.spleefLocation.get(playerName);
-				methods.preparePlayerFinish(player, location, inventory);
-				methods.removePlayerFromGame(player);
+				spleef.preparePlayerFinish(player, location, inventory);
+				spleef.removePlayerFromGame(player);
 
 				player.sendMessage(ChatColor.RED + "You've lost, bad luck!");
-				methods.sendGamePlayerMessage(methods.playerFallMessage(player));
+				spleef.sendGamePlayerMessage(spleef.playerFallMessage(player));
 				
 				// +1 to spleef_losses
 				if (plugin.spleefLosses.containsKey(player.getName())) {
@@ -86,7 +81,7 @@ public class SpleefListener implements Listener {
 					plugin.spleefLosses.put(player.getName(), 1);
 				}
 
-				if (methods.getGameSize() == 1) {
+				if (spleef.getGameSize() == 1) {
 					List<String> toRemove = new ArrayList<String>();
 					for (String spleefPlayers : plugin.spleefGame) {
 
@@ -105,7 +100,7 @@ public class SpleefListener implements Listener {
 						}
 
 						Location location2 = plugin.spleefLocation.get(spleefPlayers);
-						methods.preparePlayerFinish(winner, location2, inventory);
+						spleef.preparePlayerFinish(winner, location2, inventory);
 						
 						// +1 to spleef_wins
 						if (plugin.spleefWins.containsKey(winner.getName())) {
@@ -114,33 +109,31 @@ public class SpleefListener implements Listener {
 							plugin.spleefWins.put(winner.getName(), 1);
 						}
 
-						methods.resetFloor();
+						spleef.resetFloor();
 					}
 
-					methods.clearGame();
+					spleef.clearGame();
 					toRemove.clear();
 
-					if (methods.getQueueSize() == 2 || methods.getQueueSize() == 3) {
+					if (spleef.getQueueSize() == 2 || spleef.getQueueSize() == 3) {
 
 						for (String spleefPlayers : plugin.spleefQueue) {
 							@SuppressWarnings("deprecation")
 							Player players = Bukkit.getServer().getPlayer(spleefPlayers);
 
-							players.sendMessage(ChatColor.GREEN + "Spleef game will start in " + methods.timeToStart() + " seconds.");
+							players.sendMessage(ChatColor.GREEN + "Spleef game will start in " + spleef.timeToStart() + " seconds.");
 						}
 
 						//start SpleefRunnable
-						////new SpleefRunnable(this.plugin, location3, inventory3).runTaskLater(this.plugin, methods.timeToStart() * 20);
-						spleefCountDown.startCountDown(methods.timeToStart() * 20);
+						spleefRunnable.startCountDown(spleef.timeToStart() * 20);
 						
-					} else if (methods.getQueueSize() == 4) {
+					} else if (spleef.getQueueSize() == 4) {
 						
 						//canel current runnable
-						spleefCountDown.stopCountDown();
+						spleefRunnable.stopCountDown();
 						
 						//instantly start new runnable
-						////new SpleefRunnable(this.plugin, location3, inventory3).run();
-						spleefCountDown.startCountDown(0);
+						spleefRunnable.startCountDown(0);
 					}
 				}
 			}
@@ -178,16 +171,16 @@ public class SpleefListener implements Listener {
 
 		if (world2.toLowerCase().equalsIgnoreCase(plugin.getConfig().getString("spleef.world"))) {
 			if (action == Action.LEFT_CLICK_BLOCK || action == Action.LEFT_CLICK_AIR) {
-				if (player.hasPermission("opticore.build.spleef") && !methods.isInGame(player)) {
+				if (player.hasPermission("opticore.build.spleef") && !spleef.isInGame(player)) {
 					return;
 				}
-				if (!methods.isInGame(player)) {
+				if (!spleef.isInGame(player)) {
 					player.sendMessage(Syntax.BUILD_GENERAL);
 					event.setCancelled(true);
 				} else {
 					if (block != null) {
 						Location blocklocation = block.getLocation();
-						if (methods.floor(blocklocation, corner1, corner2) == false) {
+						if (spleef.floor(blocklocation, corner1, corner2) == false) {
 							event.setCancelled(true);
 						} else {
 							block.setType(Material.AIR);
@@ -237,15 +230,15 @@ public class SpleefListener implements Listener {
 		}
 
 		if (plugin.spleefLocation.containsKey(player.getName())) {
-			methods.restorePlayerLocation(player, location);
+			spleef.restorePlayerLocation(player, location);
 		}
 
 		if (plugin.spleefInventory.containsKey(player.getName())) {
-			methods.restorePlayerInventory(player, inventory);
+			spleef.restorePlayerInventory(player, inventory);
 		}
 		
 		if (plugin.spleefArmor.containsKey(player.getName())) {
-			methods.restorePlayerArmor(player, inventory);
+			spleef.restorePlayerArmor(player, inventory);
 		}
 	}
 
@@ -254,14 +247,14 @@ public class SpleefListener implements Listener {
 		Player player = event.getPlayer();
 		final PlayerInventory inventory = player.getInventory();
 		
-		if (methods.isInQueue(player)) {
-			methods.removePlayerFromQueue(player);
+		if (spleef.isInQueue(player)) {
+			spleef.removePlayerFromQueue(player);
 		}
 
-		if (methods.isInGame(player)) {
-			methods.removePlayerFromGame(player);
+		if (spleef.isInGame(player)) {
+			spleef.removePlayerFromGame(player);
 
-			if (methods.getGameSize() == 1) {
+			if (spleef.getGameSize() == 1) {
 				List<String> toRemove = new ArrayList<String>();
 				for (String spleefPlayers : plugin.spleefGame) {
 
@@ -280,7 +273,7 @@ public class SpleefListener implements Listener {
 					}
 
 					Location location2 = plugin.spleefLocation.get(spleefPlayers);
-					methods.preparePlayerFinish(winner, location2, inventory);
+					spleef.preparePlayerFinish(winner, location2, inventory);
 					
 					// +1 to spleef_wins
 					if (plugin.spleefWins.containsKey(winner.getName())) {
@@ -289,33 +282,31 @@ public class SpleefListener implements Listener {
 						plugin.spleefWins.put(winner.getName(), 1);
 					}
 					
-					methods.resetFloor();
+					spleef.resetFloor();
 				}
 
-				methods.clearGame();
+				spleef.clearGame();
 				toRemove.clear();
 
-				if (methods.getQueueSize() == 2 || methods.getQueueSize() == 3) {
+				if (spleef.getQueueSize() == 2 || spleef.getQueueSize() == 3) {
 
 					for (String spleefPlayers : plugin.spleefQueue) {
 						@SuppressWarnings("deprecation")
 						Player players = Bukkit.getServer().getPlayer(spleefPlayers);
 
-						players.sendMessage(ChatColor.GREEN + "Spleef game will start in " + methods.timeToStart() + " seconds.");
+						players.sendMessage(ChatColor.GREEN + "Spleef game will start in " + ChatColor.YELLOW + spleef.timeToStart() + ChatColor.GREEN + " seconds.");
 					}
 
 					//start SpleefRunnable
-					////new SpleefRunnable(this.plugin, location3, inventory3).runTaskLater(this.plugin, methods.timeToStart() * 20);
-					spleefCountDown.startCountDown(methods.timeToStart() * 20);
+					spleefRunnable.startCountDown(spleef.timeToStart() * 20);
 
-				} else if (methods.getQueueSize() == 4) {
+				} else if (spleef.getQueueSize() == 4) {
 					
 					//canel current runnable
-					spleefCountDown.stopCountDown();
+					spleefRunnable.stopCountDown();
 					
 					//instantly start new runnable
-					////new SpleefRunnable(this.plugin, location3, inventory3).run();
-					spleefCountDown.startCountDown(0);
+					spleefRunnable.startCountDown(0);
 				}
 			}
 		}

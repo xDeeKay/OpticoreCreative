@@ -10,6 +10,7 @@ import net.dkcraft.opticore.Main;
 import net.dkcraft.opticore.commands.Aliases;
 import net.dkcraft.opticore.commands.Channel;
 import net.dkcraft.opticore.commands.Classic;
+import net.dkcraft.opticore.commands.ConvertBook;
 import net.dkcraft.opticore.commands.Deafen;
 import net.dkcraft.opticore.commands.Freeze;
 import net.dkcraft.opticore.commands.Ipcheck;
@@ -31,8 +32,8 @@ import net.dkcraft.opticore.listeners.NotificationListener;
 import net.dkcraft.opticore.listeners.PaintListener;
 import net.dkcraft.opticore.listeners.PlayerAliasConfig;
 import net.dkcraft.opticore.listeners.PlayerIPConfig;
-import net.dkcraft.opticore.spleef.Methods;
-import net.dkcraft.opticore.spleef.NewSpleefRunnable;
+import net.dkcraft.opticore.spleef.SpleefMethods;
+import net.dkcraft.opticore.spleef.SpleefRunnable;
 import net.dkcraft.opticore.spleef.Spleef;
 import net.dkcraft.opticore.spleef.SpleefListener;
 import net.dkcraft.opticore.spleef.SpleefManage;
@@ -63,9 +64,9 @@ import de.diddiz.LogBlock.LogBlock;
 public class Main extends JavaPlugin {
 
 	public Main instance;
-	public Methods methods;
+	public SpleefMethods spleef;
 	public MySQL mysql;
-	public NewSpleefRunnable spleefCountDown;
+	public SpleefRunnable spleefRunnable;
 	public static ListStore ranks;
 	
 	public HashMap<String, String> chatRepeat = new HashMap<String, String>();
@@ -105,9 +106,9 @@ public class Main extends JavaPlugin {
 		
 		this.instance = this;
 		
-		methods = new Methods(this);
+		spleef = new SpleefMethods(this);
 		mysql = new MySQL(this);
-		spleefCountDown = new NewSpleefRunnable(this);
+		spleefRunnable = new SpleefRunnable(this);
 
 		final PluginManager pm = getServer().getPluginManager();
 		Plugin plugin = pm.getPlugin("LogBlock");
@@ -133,6 +134,7 @@ public class Main extends JavaPlugin {
 		this.getCommand("aliases").setExecutor(new Aliases(this));
 		this.getCommand("channel").setExecutor(new Channel(this));
 		this.getCommand("classic").setExecutor(new Classic(this));
+		this.getCommand("convertbook").setExecutor(new ConvertBook(this));
 		this.getCommand("deafen").setExecutor(new Deafen(this));
 		this.getCommand("freeze").setExecutor(new Freeze(this));
 		this.getCommand("ipcheck").setExecutor(new Ipcheck(this));
@@ -156,11 +158,9 @@ public class Main extends JavaPlugin {
 		pm.registerEvents(new ItemDropListener(this), this);
 		pm.registerEvents(new ItemUseListener(this), this);
 		pm.registerEvents(new NotificationListener(this), this);
+		pm.registerEvents(new PaintListener(this, (LogBlock)plugin), this);
 		pm.registerEvents(new PlayerAliasConfig(this), this);
 		pm.registerEvents(new PlayerIPConfig(this), this);
-
-		pm.registerEvents(new PlayerIPConfig(this), this);
-		pm.registerEvents(new PaintListener(this, (LogBlock)plugin), this);
 
 		pm.registerEvents(new StatsListener(this), this);
 		pm.registerEvents(new LoginStats(this), this);
