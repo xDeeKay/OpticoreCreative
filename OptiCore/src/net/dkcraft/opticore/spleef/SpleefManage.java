@@ -1,6 +1,7 @@
 package net.dkcraft.opticore.spleef;
 
 import net.dkcraft.opticore.Main;
+import net.dkcraft.opticore.util.Methods;
 import net.dkcraft.opticore.util.Syntax;
 
 import org.bukkit.Bukkit;
@@ -15,11 +16,14 @@ import org.bukkit.inventory.PlayerInventory;
 public class SpleefManage implements CommandExecutor {
 
 	public Main plugin;
+	
+	private Methods methods;
 	private SpleefMethods spleef;
 	private SpleefRunnable spleefRunnable;
 	
 	public SpleefManage(Main plugin) {
 		this.plugin = plugin;
+		this.methods = this.plugin.methods;
 		this.spleef = this.plugin.spleef;
 		this.spleefRunnable = this.plugin.spleefRunnable;
 	}
@@ -124,7 +128,7 @@ public class SpleefManage implements CommandExecutor {
 				plugin.saveConfig();
 				cs.sendMessage(ChatColor.GREEN + "Set spleef world.");
 			} else if (args[0].equalsIgnoreCase("timer")) {
-				if (spleef.isInt(entry)) {
+				if (methods.isInt(entry)) {
 					plugin.getConfig().set("spleef.timer", Integer.parseInt(entry));
 					plugin.saveConfig();
 					cs.sendMessage(ChatColor.GREEN + "Set spleef timer.");
@@ -178,7 +182,7 @@ public class SpleefManage implements CommandExecutor {
 						String blockData = parts[1];
 						//int partsLength = parts.length;
 
-						if (spleef.isInt(blockType) && spleef.isInt(blockData)) {
+						if (methods.isInt(blockType) && methods.isInt(blockData)) {
 							plugin.getConfig().set("spleef.floor.blocktype", Integer.parseInt(blockType));
 							plugin.getConfig().set("spleef.floor.blockdata", Integer.parseInt(blockData));
 							plugin.saveConfig();
@@ -187,7 +191,7 @@ public class SpleefManage implements CommandExecutor {
 							cs.sendMessage(Syntax.USAGE_INCORRECT + "/spleefmanage floor block <block int id>");
 						}
 					} else {
-						if (spleef.isInt(block)) {
+						if (methods.isInt(block)) {
 							plugin.getConfig().set("spleef.floor.blocktype", Integer.parseInt(block));
 							plugin.getConfig().set("spleef.floor.blockdata", 0);
 							plugin.saveConfig();

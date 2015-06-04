@@ -13,11 +13,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffect;
 
+import com.earth2me.essentials.Essentials;
+
 import net.dkcraft.opticore.Main;
 
 public class SpleefMethods {
 
 	public Main plugin;
+
+	Essentials essentials = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
 
 	private ChatColor YELLOW = ChatColor.YELLOW;
 	private ChatColor GREEN = ChatColor.GREEN;
@@ -58,6 +62,13 @@ public class SpleefMethods {
 			player.removePotionEffect(effect.getType());
 		}
 		//System.out.println("cleared " + player.getName() + "'s potions");
+
+		if (essentials != null) {
+			if (essentials.getUser(player).isVanished()) {
+				essentials.getUser(player).setVanished(false);
+			}
+		}
+		//System.out.println("unvanished " + player.getName() + " via essentials");
 
 		plugin.spleefGame.add(player.getName());
 		//System.out.println("added " + player.getName() + " to spleef game");
@@ -194,35 +205,44 @@ public class SpleefMethods {
 		return plugin.getConfig().getInt("spleef.timer");
 	}
 
-	// Check for int
-	public boolean isInt(String str) {
-		try {
-			Integer.parseInt(str);
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
-		}
-	}
-
 	// Floor area
-	public boolean floor(Location blocklocation, Location l1, Location l2) {
-		int x1 = Math.min(l1.getBlockX(), l2.getBlockX());
-		int z1 = Math.min(l1.getBlockZ(), l2.getBlockZ());
-		int x2 = Math.max(l1.getBlockX(), l2.getBlockX());
-		int z2 = Math.max(l1.getBlockZ(), l2.getBlockZ());
-		int y = Math.min(l1.getBlockY(), l2.getBlockY());
+	public boolean floor(Location location) {
 
-		return blocklocation.getX() >= x1 && blocklocation.getX() <= x2 && blocklocation.getY() >= y && blocklocation.getY() <= y && blocklocation.getZ() >= z1 && blocklocation.getZ() <= z2;
+		int xCorner1 = plugin.getConfig().getInt("spleef.floor.corner1.x");
+		int xCorner2 = plugin.getConfig().getInt("spleef.floor.corner2.x");
+		int x1 = Math.min(xCorner1, xCorner2);
+		int x2 = Math.max(xCorner1, xCorner2);
+
+		int yCorner1 = plugin.getConfig().getInt("spleef.floor.corner1.y");
+		int yCorner2 = plugin.getConfig().getInt("spleef.floor.corner2.y");
+		int y1 = Math.min(yCorner1, yCorner2);
+		int y2 = Math.max(yCorner1, yCorner2);
+
+		int zCorner1 = plugin.getConfig().getInt("spleef.floor.corner1.z");
+		int zCorner2 = plugin.getConfig().getInt("spleef.floor.corner2.z");
+		int z1 = Math.min(zCorner1, zCorner2);
+		int z2 = Math.max(zCorner1, zCorner2);
+
+		return location.getX() >= x1 && location.getX() <= x2 && location.getY() >= y1 && location.getY() <= y2 && location.getZ() >= z1 && location.getZ() <= z2;
 	}
 
 	// Pit area
-	public boolean pit(Location location, Location l1, Location l2) {
-		int x1 = Math.min(l1.getBlockX(), l2.getBlockX());
-		int y1 = Math.min(l1.getBlockY(), l2.getBlockY());
-		int z1 = Math.min(l1.getBlockZ(), l2.getBlockZ());
-		int x2 = Math.max(l1.getBlockX(), l2.getBlockX());
-		int y2 = Math.min(l1.getBlockY(), l2.getBlockY());
-		int z2 = Math.max(l1.getBlockZ(), l2.getBlockZ());
+	public boolean pit(Location location) {
+
+		int xCorner1 = plugin.getConfig().getInt("spleef.pit.corner1.x");
+		int xCorner2 = plugin.getConfig().getInt("spleef.pit.corner2.x");
+		int x1 = Math.min(xCorner1, xCorner2);
+		int x2 = Math.max(xCorner1, xCorner2) +1;
+
+		int yCorner1 = plugin.getConfig().getInt("spleef.pit.corner1.y");
+		int yCorner2 = plugin.getConfig().getInt("spleef.pit.corner2.y");
+		int y1 = Math.min(yCorner1, yCorner2);
+		int y2 = Math.max(yCorner1, yCorner2);
+
+		int zCorner1 = plugin.getConfig().getInt("spleef.pit.corner1.z");
+		int zCorner2 = plugin.getConfig().getInt("spleef.pit.corner2.z");
+		int z1 = Math.min(zCorner1, zCorner2);
+		int z2 = Math.max(zCorner1, zCorner2) +1;
 
 		return location.getX() >= x1 && location.getX() <= x2 && location.getY() >= y1 && location.getY() <= y2 && location.getZ() >= z1 && location.getZ() <= z2;
 	}
@@ -251,22 +271,21 @@ public class SpleefMethods {
 		int blockType = plugin.getConfig().getInt("spleef.floor.blocktype");
 		int blockData = plugin.getConfig().getInt("spleef.floor.blockdata");
 
-		
+
 		for (int x = x1; x <= x2; x++) {
 			for (int y = y1; y <= y2; y++) {
 				for (int z = z1; z <= z2; z++) {
-					//world.getBlockAt(x, y, z).setTypeId(plugin.getConfig().getInt("spleef.floor.block"));
 					if (plugin.getConfig().getBoolean("spleef.floor.rainbow") == true) {
-						
+
 						Random object = new Random();
 						int num;
-						
+
 						Block block = world.getBlockAt(x, y, z);
-					    block.setType(Material.WOOL);
-					    for (int counter =1; counter <=1; counter++) {
-					    	num = 1 + object.nextInt(15);
-					    	block.setData((byte)num);
-					    }
+						block.setType(Material.WOOL);
+						for (int counter =1; counter <=1; counter++) {
+							num = 1 + object.nextInt(15);
+							block.setData((byte)num);
+						}
 					} else {
 						world.getBlockAt(x, y, z).setTypeIdAndData(blockType, (byte) blockData, true);
 					}

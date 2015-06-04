@@ -11,7 +11,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -53,19 +52,10 @@ public class SpleefListener implements Listener {
 		final Player player = event.getPlayer();
 		final String playerName = player.getName();
 		final PlayerInventory inventory = player.getInventory();
-
-		World world = Bukkit.getWorld(plugin.getConfig().getString("spleef.world"));
-		double corner1x = plugin.getConfig().getDouble("spleef.pit.corner1.x");
-		double corner1y = plugin.getConfig().getDouble("spleef.pit.corner1.y");
-		double corner1z = plugin.getConfig().getDouble("spleef.pit.corner1.z");
-		double corner2x = plugin.getConfig().getDouble("spleef.pit.corner2.x");
-		double corner2y = plugin.getConfig().getDouble("spleef.pit.corner2.y");
-		double corner2z = plugin.getConfig().getDouble("spleef.pit.corner2.z");
-		Location corner1 = new Location(world, corner1x, corner1y, corner1z);
-		Location corner2 = new Location(world, corner2x, corner2y, corner2z);
+		Location playerLocation = player.getLocation();
 
 		if (spleef.isInGame(player)) {
-			if (spleef.pit(player.getLocation(), corner1, corner2) == true) {
+			if (spleef.pit(playerLocation) == true) {
 
 				Location location = plugin.spleefLocation.get(playerName);
 				spleef.preparePlayerFinish(player, location, inventory);
@@ -73,7 +63,7 @@ public class SpleefListener implements Listener {
 
 				player.sendMessage(ChatColor.RED + "You've lost, bad luck!");
 				spleef.sendGamePlayerMessage(spleef.playerFallMessage(player));
-				
+
 				// +1 to spleef_losses
 				if (plugin.spleefLosses.containsKey(player.getName())) {
 					plugin.spleefLosses.put(player.getName(), plugin.spleefLosses.get(player.getName()) + 1);
@@ -101,7 +91,7 @@ public class SpleefListener implements Listener {
 
 						Location location2 = plugin.spleefLocation.get(spleefPlayers);
 						spleef.preparePlayerFinish(winner, location2, inventory);
-						
+
 						// +1 to spleef_wins
 						if (plugin.spleefWins.containsKey(winner.getName())) {
 							plugin.spleefWins.put(winner.getName(), plugin.spleefWins.get(winner.getName()) + 1);
@@ -126,12 +116,12 @@ public class SpleefListener implements Listener {
 
 						//start SpleefRunnable
 						spleefRunnable.startCountDown(spleef.timeToStart() * 20);
-						
+
 					} else if (spleef.getQueueSize() == 4) {
-						
+
 						//canel current runnable
 						spleefRunnable.stopCountDown();
-						
+
 						//instantly start new runnable
 						spleefRunnable.startCountDown(0);
 					}
@@ -160,15 +150,6 @@ public class SpleefListener implements Listener {
 		Action action = event.getAction();
 		Block block = event.getClickedBlock();
 
-		World world = Bukkit.getWorld(plugin.getConfig().getString("spleef.world"));
-		int floor1x = plugin.getConfig().getInt("spleef.floor.corner1.x");
-		int floor1z = plugin.getConfig().getInt("spleef.floor.corner1.z");
-		int floor2x = plugin.getConfig().getInt("spleef.floor.corner2.x");
-		int floor2z = plugin.getConfig().getInt("spleef.floor.corner2.z");
-		int floory = plugin.getConfig().getInt("spleef.floor.corner1.y");
-		Location corner1 = new Location(world, floor1x, floory, floor1z);
-		Location corner2 = new Location(world, floor2x, floory, floor2z);
-
 		if (world2.toLowerCase().equalsIgnoreCase(plugin.getConfig().getString("spleef.world"))) {
 			if (action == Action.LEFT_CLICK_BLOCK || action == Action.LEFT_CLICK_AIR) {
 				if (player.hasPermission("opticore.build.spleef") && !spleef.isInGame(player)) {
@@ -179,8 +160,8 @@ public class SpleefListener implements Listener {
 					event.setCancelled(true);
 				} else {
 					if (block != null) {
-						Location blocklocation = block.getLocation();
-						if (spleef.floor(blocklocation, corner1, corner2) == false) {
+						Location blockLocation = block.getLocation();
+						if (spleef.floor(blockLocation) == false) {
 							event.setCancelled(true);
 						} else {
 							block.setType(Material.AIR);
@@ -198,9 +179,9 @@ public class SpleefListener implements Listener {
 		Block block = event.getBlock();
 
 		if (plugin.spleefPitManage.containsKey(playerName)) {
-			plugin.getConfig().set("spleef.pit." + plugin.spleefPitManage.get(playerName) + ".x", block.getX() + 0.5);
+			plugin.getConfig().set("spleef.pit." + plugin.spleefPitManage.get(playerName) + ".x", block.getX());
 			plugin.getConfig().set("spleef.pit." + plugin.spleefPitManage.get(playerName) + ".y", block.getY());
-			plugin.getConfig().set("spleef.pit." + plugin.spleefPitManage.get(playerName) + ".z", block.getZ() + 0.5);
+			plugin.getConfig().set("spleef.pit." + plugin.spleefPitManage.get(playerName) + ".z", block.getZ());
 			plugin.saveConfig();
 			event.setCancelled(true);
 			player.sendMessage(ChatColor.GREEN + "Location set for pit " + plugin.spleefPitManage.get(playerName) + ".");
@@ -236,7 +217,7 @@ public class SpleefListener implements Listener {
 		if (plugin.spleefInventory.containsKey(player.getName())) {
 			spleef.restorePlayerInventory(player, inventory);
 		}
-		
+
 		if (plugin.spleefArmor.containsKey(player.getName())) {
 			spleef.restorePlayerArmor(player, inventory);
 		}
@@ -246,7 +227,7 @@ public class SpleefListener implements Listener {
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		final PlayerInventory inventory = player.getInventory();
-		
+
 		if (spleef.isInQueue(player)) {
 			spleef.removePlayerFromQueue(player);
 		}
@@ -274,14 +255,14 @@ public class SpleefListener implements Listener {
 
 					Location location2 = plugin.spleefLocation.get(spleefPlayers);
 					spleef.preparePlayerFinish(winner, location2, inventory);
-					
+
 					// +1 to spleef_wins
 					if (plugin.spleefWins.containsKey(winner.getName())) {
 						plugin.spleefWins.put(winner.getName(), plugin.spleefWins.get(winner.getName()) + 1);
 					} else {
 						plugin.spleefWins.put(winner.getName(), 1);
 					}
-					
+
 					spleef.resetFloor();
 				}
 
@@ -301,10 +282,10 @@ public class SpleefListener implements Listener {
 					spleefRunnable.startCountDown(spleef.timeToStart() * 20);
 
 				} else if (spleef.getQueueSize() == 4) {
-					
+
 					//canel current runnable
 					spleefRunnable.stopCountDown();
-					
+
 					//instantly start new runnable
 					spleefRunnable.startCountDown(0);
 				}

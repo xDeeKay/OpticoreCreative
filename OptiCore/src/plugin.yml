@@ -1,9 +1,9 @@
 name: Opticore
-version: Comedic Kangaroo
+version: Wasteful Wallaby
 description: Opticraft Creative mumbo jumbo.
 author: xDeeKay
 main: net.dkcraft.opticore.Main
-depend: [Essentials, Votifier, LogBlock]
+depend: [Essentials, Votifier, LogBlock, PermissionsEx]
 commands:
     aliases:
         description: List a players aliases.

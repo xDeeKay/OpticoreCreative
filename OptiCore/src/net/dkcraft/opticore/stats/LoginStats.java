@@ -3,20 +3,25 @@ package net.dkcraft.opticore.stats;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import net.dkcraft.opticore.Main;
 import net.dkcraft.opticore.util.MySQL;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
+
+import ru.tehkode.permissions.PermissionUser;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class LoginStats implements Listener {
 
 	public Main plugin;
 	private MySQL mysql;
-	
+
 	public LoginStats(Main plugin) {
 		this.plugin = plugin;
 		this.mysql = this.plugin.mysql;
@@ -24,6 +29,7 @@ public class LoginStats implements Listener {
 
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event) {
+		final Player player = event.getPlayer();
 		final String playerName = event.getPlayer().getName();
 		final String uuid = event.getPlayer().getUniqueId().toString();
 
@@ -54,6 +60,16 @@ public class LoginStats implements Listener {
 						nameUpdate.setString(2, uuid);
 						nameUpdate.executeUpdate();
 
+						PermissionUser user = PermissionsEx.getUser(player);
+						List<String> groups = user.getParentIdentifiers();
+						String group = groups.get(0).toLowerCase();
+
+						PreparedStatement rankUpdate = mysql.connection
+								.prepareStatement("UPDATE `player_stats` SET current_rank=? WHERE uuid=?;");
+						rankUpdate.setString(1, group);
+						rankUpdate.setString(2, uuid);
+						rankUpdate.executeUpdate();
+
 						PreparedStatement onlineUpdate = mysql.connection
 								.prepareStatement("UPDATE `player_stats` SET last_online=? WHERE uuid=?;");
 						onlineUpdate.setString(1, "now");
@@ -66,12 +82,13 @@ public class LoginStats implements Listener {
 						result.close();
 					} else {
 						PreparedStatement newPlayer = mysql.connection
-								.prepareStatement("INSERT INTO `player_stats` values(?,?,?,?,1,0,0,0,0,0,0,0);");
+								.prepareStatement("INSERT INTO `player_stats` values(?,?,?,?,1,0,0,0,0,0,0,0,?);");
 						newPlayer.setString(1, uuid);
 						SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 						newPlayer.setString(2, playerName);
 						newPlayer.setString(3, format.format(System.currentTimeMillis()));
 						newPlayer.setString(4, "now");
+						newPlayer.setString(5, "default");
 						newPlayer.execute();
 						newPlayer.close();
 					}

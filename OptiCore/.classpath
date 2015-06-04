@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="C:/Users/Dion/Desktop/Essentials.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Dion/Desktop/Votifier.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Dion/Desktop/LogBlock.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Dion/Desktop/PermissionsEx.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

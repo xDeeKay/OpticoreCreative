@@ -49,6 +49,7 @@ import net.dkcraft.opticore.stats.TimeOnlineHandler;
 import net.dkcraft.opticore.stats.VoteStats;
 import net.dkcraft.opticore.util.InventoryGUI;
 import net.dkcraft.opticore.util.ListStore;
+import net.dkcraft.opticore.util.Methods;
 import net.dkcraft.opticore.util.MySQL;
 
 import org.bukkit.Bukkit;
@@ -64,8 +65,9 @@ import de.diddiz.LogBlock.LogBlock;
 public class Main extends JavaPlugin {
 
 	public Main instance;
-	public SpleefMethods spleef;
+	public Methods methods;
 	public MySQL mysql;
+	public SpleefMethods spleef;
 	public SpleefRunnable spleefRunnable;
 	public static ListStore ranks;
 	
@@ -106,8 +108,9 @@ public class Main extends JavaPlugin {
 		
 		this.instance = this;
 		
-		spleef = new SpleefMethods(this);
+		methods = new Methods(this);
 		mysql = new MySQL(this);
+		spleef = new SpleefMethods(this);
 		spleefRunnable = new SpleefRunnable(this);
 
 		final PluginManager pm = getServer().getPluginManager();
