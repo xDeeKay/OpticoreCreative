@@ -47,6 +47,10 @@ import net.dkcraft.opticore.stats.SpleefWinHandler;
 import net.dkcraft.opticore.stats.StatsListener;
 import net.dkcraft.opticore.stats.TimeOnlineHandler;
 import net.dkcraft.opticore.stats.VoteStats;
+import net.dkcraft.opticore.tickets.Helpop;
+import net.dkcraft.opticore.tickets.Ticket;
+import net.dkcraft.opticore.tickets.TicketListener;
+import net.dkcraft.opticore.tickets.TicketMethods;
 import net.dkcraft.opticore.util.InventoryGUI;
 import net.dkcraft.opticore.util.ListStore;
 import net.dkcraft.opticore.util.Methods;
@@ -69,6 +73,8 @@ public class Main extends JavaPlugin {
 	public MySQL mysql;
 	public SpleefMethods spleef;
 	public SpleefRunnable spleefRunnable;
+	public TicketMethods ticket;
+	
 	public static ListStore ranks;
 	
 	public HashMap<String, String> chatRepeat = new HashMap<String, String>();
@@ -99,6 +105,9 @@ public class Main extends JavaPlugin {
 	public ArrayList<String> spleefQueue = new ArrayList<String>();
 	public ArrayList<String> spleefGame = new ArrayList<String>();
 	
+	public HashMap<String, String> tickets = new HashMap<String, String>();
+	public ArrayList<String> claimedTicket = new ArrayList<String>();
+	
 	public void loadConfiguration() {
 		this.getConfig().options().copyDefaults(true);
 		saveDefaultConfig();
@@ -112,6 +121,7 @@ public class Main extends JavaPlugin {
 		mysql = new MySQL(this);
 		spleef = new SpleefMethods(this);
 		spleefRunnable = new SpleefRunnable(this);
+		ticket = new TicketMethods(this);
 
 		final PluginManager pm = getServer().getPluginManager();
 		Plugin plugin = pm.getPlugin("LogBlock");
@@ -154,6 +164,9 @@ public class Main extends JavaPlugin {
 		this.getCommand("spleef").setExecutor(new Spleef(this));
 		this.getCommand("spleefmanage").setExecutor(new SpleefManage(this));
 		
+		this.getCommand("ticket").setExecutor(new Ticket(this));
+		this.getCommand("helpop").setExecutor(new Helpop(this));
+		
 		pm.registerEvents(new BuildListener(this), this);
 		pm.registerEvents(new ChatListener(this), this);
 		pm.registerEvents(new FreezeListener(this), this);
@@ -170,6 +183,10 @@ public class Main extends JavaPlugin {
 		pm.registerEvents(new VoteStats(this), this);
 		
 		pm.registerEvents(new SpleefListener(this), this);
+		
+		pm.registerEvents(new TicketListener(this), this);
+		
+		ticket.setupScoreboard();
 
 		mysql.openConnection();
 	}

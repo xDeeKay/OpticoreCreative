@@ -36,6 +36,11 @@ commands:
         usage: /freeze <player> [reason]
         permission: opticore.freeze
         permission-message: You do not have permission to do that.
+    helpop:
+        description: Sends a helpop request to staff members.
+        usage: /helpop <message>
+        permission: opticore.helpop
+        permission-message: You do not have permission to do that.
     ipcheck:
         description: List a players ip history.
         usage: /ipcheck <player>
@@ -96,6 +101,11 @@ commands:
         description: Displays a players statistics.
         usage: /stats <player>
         permission: opticore.stats
+        permission-message: You do not have permission to do that.
+    ticket:
+        description: Manages player tickets.
+        usage: /ticket <args>
+        permission: opticore.ticket
         permission-message: You do not have permission to do that.
     togglenotifications:
         description: Toggles world notifications.
@@ -203,3 +213,24 @@ permissions:
      description: Access to personal world listmembers command.
    opticore.personalworld.bypass:
      description: Bypass personal world build restrictions.
+   opticore.ticket.*:
+     description: Access to all ticket commands.
+     children:
+       opticore.ticket.list: true
+       opticore.ticket.create: true
+       opticore.ticket.claim: true
+       opticore.ticket.delete: true
+       opticore.ticket.view: true
+       opticore.ticket.teleport: true
+   opticore.ticket.list:
+     description: Access to ticket list command.
+   opticore.ticket.create:
+     description: Access to ticket create command.
+   opticore.ticket.claim:
+     description: Access to ticket claim command.
+   opticore.ticket.delete:
+     description: Access to ticket delete command.
+   opticore.ticket.view:
+     description: Access to ticket view command.
+   opticore.ticket.teleport:
+     description: Access to ticket teleport command.

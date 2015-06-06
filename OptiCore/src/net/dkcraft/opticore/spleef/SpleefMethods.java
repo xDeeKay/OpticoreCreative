@@ -57,6 +57,9 @@ public class SpleefMethods {
 		//System.out.println("set " + player.getName() + "'s health");
 		player.setFoodLevel(20);
 		//System.out.println("set " + player.getName() + "'s hunger");
+		
+		player.setWalkSpeed(1);
+		//System.out.println("set " + player.getName() + "'s walk speed");
 
 		for (PotionEffect effect : player.getActivePotionEffects()) {
 			player.removePotionEffect(effect.getType());
