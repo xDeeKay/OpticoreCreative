@@ -28,7 +28,7 @@ public class Ticket implements CommandExecutor {
 
 			if (args.length == 1) {
 
-				if (args[0].equalsIgnoreCase("list")) {
+				if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l")) {
 					if (!ticket.isEmpty()) {
 						ticket.listTickets(player);
 					} else {

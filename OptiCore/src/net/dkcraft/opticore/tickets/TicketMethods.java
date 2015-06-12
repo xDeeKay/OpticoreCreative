@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 import net.dkcraft.opticore.Main;
 
@@ -27,10 +28,11 @@ public class TicketMethods {
 
 	// Setup scoreboard
 	public void setupScoreboard() {
-		scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+		ScoreboardManager manager = Bukkit.getScoreboardManager();
+		scoreboard = manager.getNewScoreboard();
 
 		Objective tickets = scoreboard.registerNewObjective("tickets", "dummy");
-		tickets.setDisplayName("Tickets");
+		tickets.setDisplayName("tickets");
 		tickets.setDisplaySlot(DisplaySlot.SIDEBAR);
 	}
 	

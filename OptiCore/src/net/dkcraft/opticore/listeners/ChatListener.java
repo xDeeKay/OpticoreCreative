@@ -11,13 +11,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import net.dkcraft.opticore.Main;
+import net.dkcraft.opticore.util.Methods;
 
 public class ChatListener implements Listener {
 
 	public Main plugin;
+	private Methods methods;
 
 	public ChatListener(Main plugin) {
 		this.plugin = plugin;
+		this.methods = this.plugin.methods;
 	}
 
 	@EventHandler
@@ -61,7 +64,7 @@ public class ChatListener implements Listener {
 		if (plugin.deafen.contains(playerName)) {
 			event.setCancelled(true);
 		}
-		
+
 		World world = event.getPlayer().getWorld();
 		if (plugin.localChannel.contains(player.getName())) {
 			for (Iterator<Player> itr = event.getRecipients().iterator(); itr.hasNext();) {
@@ -77,6 +80,27 @@ public class ChatListener implements Listener {
 					if (staff.hasPermission("opticore.staffchat")) {
 						staff.sendMessage(ChatColor.BLACK + "[S] " + getRank(player) + playerName + ChatColor.WHITE + ": " + message);
 						event.setCancelled(true);
+					}
+				}
+			}
+		}
+
+		for (String player1 : plugin.toggleAlerts) {
+
+			@SuppressWarnings("deprecation")
+			Player alertPlayer = Bukkit.getServer().getPlayer(player1);
+
+			Player sender = event.getPlayer();
+
+			if (alertPlayer != null) {
+				if (message.toLowerCase().contains(alertPlayer.getName().toLowerCase())) {
+					if (sender != alertPlayer) {
+						if (plugin.localChannel.contains(sender.getName()) && sender.getWorld() != alertPlayer.getWorld()) {
+							return;
+						}
+
+						alertPlayer.sendMessage(ChatColor.GREEN + sender.getName() + " mentioned you.");
+						methods.playAlertSound(alertPlayer, alertPlayer.getLocation());
 					}
 				}
 			}

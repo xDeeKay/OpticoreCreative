@@ -46,6 +46,11 @@ commands:
         usage: /ipcheck <player>
         permission: opticore.ipcheck
         permission-message: You do not have permission to do that.
+    irc:
+        description: Handles irc staff commands.
+        usage: /irc <args>
+        permission: opticore.irc
+        permission-message: You do not have permission to do that.
     msg:
         description: Send a message directly to a player.
         aliases: [tell, m, t, whisper]
@@ -107,8 +112,14 @@ commands:
         usage: /ticket <args>
         permission: opticore.ticket
         permission-message: You do not have permission to do that.
+    togglealerts:
+        description: Toggles alerts.
+        aliases: ta
+        usage: /togglealerts
+        permission: opticore.togglealerts
+        permission-message: You do not have permission to do that.
     togglenotifications:
-        description: Toggles world notifications.
+        description: Toggles notifications.
         aliases: tn
         usage: /togglenotifications
         permission: opticore.togglenotifications
@@ -234,3 +245,15 @@ permissions:
      description: Access to ticket view command.
    opticore.ticket.teleport:
      description: Access to ticket teleport command.
+   opticore.irc.*:
+     description: Access to all irc commands.
+     children:
+       opticore.irc.kick: true
+       opticore.irc.ban: true
+       opticore.irc.unban: true
+   opticore.irc.kick:
+     description: Access to irc kick command.
+   opticore.irc.ban:
+     description: Access to irc ban command.
+   opticore.irc.unban:
+     description: Access to irc unban command.

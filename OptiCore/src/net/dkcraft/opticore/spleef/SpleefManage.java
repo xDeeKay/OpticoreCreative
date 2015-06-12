@@ -43,11 +43,13 @@ public class SpleefManage implements CommandExecutor {
 			cs.sendMessage(ChatColor.GREEN + " /spleefmanage floor <block/corner1/corner2>");
 			cs.sendMessage(ChatColor.GREEN + " /spleefmanage pit <corner1/corner2>");
 			cs.sendMessage(ChatColor.GREEN + " /spleefmanage players <player1/player2/player3/player4>");
+			cs.sendMessage(ChatColor.GREEN + " /spleefmanage fireworks <firework1/firework2/firework3/firework4>");
 			cs.sendMessage(ChatColor.GREEN + " /spleefmanage forcestart");
 			cs.sendMessage(ChatColor.GREEN + " /spleefmanage forcestop");
 			cs.sendMessage(ChatColor.GREEN + " /spleefmanage clearqueue");
 			cs.sendMessage(ChatColor.GREEN + " /spleefmanage cleargame");
 			cs.sendMessage(ChatColor.GREEN + " /spleefmanage resetfloor");
+			cs.sendMessage(ChatColor.GREEN + " /spleefmanage launchfireworks");
 			return true;
 		}
 		if (args.length == 1) {
@@ -115,6 +117,10 @@ public class SpleefManage implements CommandExecutor {
 			} else if (args[0].equalsIgnoreCase("resetfloor")) {
 				spleef.resetFloor();
 				cs.sendMessage(ChatColor.GREEN + "Reset floor.");
+			} else if (args[0].equalsIgnoreCase("launchfireworks")) {
+				spleef.launchFireworks();
+				spleef.launchFireworks();
+				cs.sendMessage(ChatColor.GREEN + "Launched fireworks.");
 			}
 
 		} else if (args.length == 2) {
@@ -168,6 +174,16 @@ public class SpleefManage implements CommandExecutor {
 					cs.sendMessage(ChatColor.GREEN + "Set " + entry + " location.");
 				} else {
 					cs.sendMessage(Syntax.USAGE_INCORRECT + "/spleefmanage players <player1/player2/player3/player4>");
+				}
+			} else if (args[0].equalsIgnoreCase("fireworks")) {
+				if (args[1].equalsIgnoreCase("firework1") || args[1].equalsIgnoreCase("firework2") || args[1].equalsIgnoreCase("firework3") || args[1].equalsIgnoreCase("firework4")) {
+					plugin.getConfig().set("spleef.fireworks." + entry + ".x", location.getX());
+					plugin.getConfig().set("spleef.fireworks." + entry + ".y", location.getY());
+					plugin.getConfig().set("spleef.fireworks." + entry + ".z", location.getZ());
+					plugin.saveConfig();
+					cs.sendMessage(ChatColor.GREEN + "Set " + entry + " location.");
+				} else {
+					cs.sendMessage(Syntax.USAGE_INCORRECT + "/spleefmanage fireworks <firework1/firework2/firework3/firework4>");
 				}
 			} else {
 				cs.sendMessage(Syntax.USAGE_INCORRECT + "/spleefmanage world/timer/floor/pit/players");

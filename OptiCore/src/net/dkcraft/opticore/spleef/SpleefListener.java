@@ -88,6 +88,8 @@ public class SpleefListener implements Listener {
 								}
 							}
 						}
+						
+						spleef.launchFireworks();
 
 						Location location2 = plugin.spleefLocation.get(spleefPlayers);
 						spleef.preparePlayerFinish(winner, location2, inventory);
@@ -252,6 +254,8 @@ public class SpleefListener implements Listener {
 							}
 						}
 					}
+					
+					spleef.launchFireworks();
 
 					Location location2 = plugin.spleefLocation.get(spleefPlayers);
 					spleef.preparePlayerFinish(winner, location2, inventory);
