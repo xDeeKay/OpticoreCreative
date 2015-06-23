@@ -1,4 +1,4 @@
-package net.dkcraft.opticore.commands;
+package net.dkcraft.opticore.stats;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

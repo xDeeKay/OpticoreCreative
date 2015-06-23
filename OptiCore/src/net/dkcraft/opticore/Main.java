@@ -22,9 +22,10 @@ import net.dkcraft.opticore.commands.R;
 import net.dkcraft.opticore.commands.Ranks;
 import net.dkcraft.opticore.commands.Socialspy;
 import net.dkcraft.opticore.commands.Staffchat;
-import net.dkcraft.opticore.commands.Stats;
 import net.dkcraft.opticore.commands.ToggleAlerts;
 import net.dkcraft.opticore.commands.ToggleNotifications;
+import net.dkcraft.opticore.label.Label;
+import net.dkcraft.opticore.label.LabelMethods;
 import net.dkcraft.opticore.listeners.BuildListener;
 import net.dkcraft.opticore.listeners.ChatListener;
 import net.dkcraft.opticore.listeners.FreezeListener;
@@ -39,16 +40,17 @@ import net.dkcraft.opticore.spleef.SpleefRunnable;
 import net.dkcraft.opticore.spleef.Spleef;
 import net.dkcraft.opticore.spleef.SpleefListener;
 import net.dkcraft.opticore.spleef.SpleefManage;
-import net.dkcraft.opticore.stats.BlockBreakHandler;
-import net.dkcraft.opticore.stats.BlockPlaceHandler;
-import net.dkcraft.opticore.stats.ChatHandler;
-import net.dkcraft.opticore.stats.LoginStats;
-import net.dkcraft.opticore.stats.QuitHandler;
-import net.dkcraft.opticore.stats.SpleefLossHandler;
-import net.dkcraft.opticore.stats.SpleefWinHandler;
+import net.dkcraft.opticore.stats.Stats;
 import net.dkcraft.opticore.stats.StatsListener;
-import net.dkcraft.opticore.stats.TimeOnlineHandler;
-import net.dkcraft.opticore.stats.VoteStats;
+import net.dkcraft.opticore.stats.handlers.BlockBreakHandler;
+import net.dkcraft.opticore.stats.handlers.BlockPlaceHandler;
+import net.dkcraft.opticore.stats.handlers.ChatHandler;
+import net.dkcraft.opticore.stats.handlers.LoginHandler;
+import net.dkcraft.opticore.stats.handlers.QuitHandler;
+import net.dkcraft.opticore.stats.handlers.SpleefLossHandler;
+import net.dkcraft.opticore.stats.handlers.SpleefWinHandler;
+import net.dkcraft.opticore.stats.handlers.TimeOnlineHandler;
+import net.dkcraft.opticore.stats.handlers.VoteHandler;
 import net.dkcraft.opticore.tickets.Helpop;
 import net.dkcraft.opticore.tickets.Ticket;
 import net.dkcraft.opticore.tickets.TicketListener;
@@ -78,6 +80,7 @@ public class Main extends JavaPlugin {
 	public SpleefRunnable spleefRunnable;
 	public TicketMethods ticket;
 	public ColouredNames colouredNames;
+	public LabelMethods label;
 
 	public static ListStore ranks;
 
@@ -98,7 +101,6 @@ public class Main extends JavaPlugin {
 	public ConcurrentHashMap<String, Integer> statsBlockPlace = new ConcurrentHashMap<String, Integer>();
 	public ConcurrentHashMap<String, Integer> statsChat = new ConcurrentHashMap<String, Integer>();
 	public HashMap<String, Long> statsTimeOnline = new HashMap<String, Long>();
-
 	public ConcurrentHashMap<String, Integer> spleefWins = new ConcurrentHashMap<String, Integer>();
 	public ConcurrentHashMap<String, Integer> spleefLosses = new ConcurrentHashMap<String, Integer>();
 
@@ -128,9 +130,10 @@ public class Main extends JavaPlugin {
 		spleefRunnable = new SpleefRunnable(this);
 		ticket = new TicketMethods(this);
 		colouredNames = new ColouredNames(this);
+		label = new LabelMethods(this);
 
 		final PluginManager pm = getServer().getPluginManager();
-		
+
 		Plugin plugin = pm.getPlugin("LogBlock");
 		if (plugin == null) {
 			pm.disablePlugin(this);
@@ -175,6 +178,8 @@ public class Main extends JavaPlugin {
 
 		this.getCommand("ticket").setExecutor(new Ticket(this));
 		this.getCommand("helpop").setExecutor(new Helpop(this));
+		
+		this.getCommand("label").setExecutor(new Label(this));
 
 		pm.registerEvents(new BuildListener(this), this);
 		pm.registerEvents(new ChatListener(this), this);
@@ -188,17 +193,18 @@ public class Main extends JavaPlugin {
 		pm.registerEvents(new PlayerIPConfig(this), this);
 
 		pm.registerEvents(new StatsListener(this), this);
-		pm.registerEvents(new LoginStats(this), this);
-		pm.registerEvents(new VoteStats(this), this);
+		pm.registerEvents(new LoginHandler(this), this);
+		pm.registerEvents(new VoteHandler(this), this);
 
 		pm.registerEvents(new SpleefListener(this), this);
 
 		pm.registerEvents(new TicketListener(this), this);
 
 		pm.registerEvents(new ColouredNames(this), this);
+		
+		//pm.registerEvents(new SignFixerino(this), this);
 
 		ticket.setupScoreboard();
-
 		mysql.openConnection();
 	}
 

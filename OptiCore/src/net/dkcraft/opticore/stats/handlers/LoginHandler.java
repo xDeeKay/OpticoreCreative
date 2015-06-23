@@ -1,4 +1,4 @@
-package net.dkcraft.opticore.stats;
+package net.dkcraft.opticore.stats.handlers;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,12 +17,12 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
-public class LoginStats implements Listener {
+public class LoginHandler implements Listener {
 
 	public Main plugin;
 	private MySQL mysql;
 
-	public LoginStats(Main plugin) {
+	public LoginHandler(Main plugin) {
 		this.plugin = plugin;
 		this.mysql = this.plugin.mysql;
 	}

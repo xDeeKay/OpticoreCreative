@@ -1,4 +1,4 @@
-package net.dkcraft.opticore.stats;
+package net.dkcraft.opticore.stats.handlers;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

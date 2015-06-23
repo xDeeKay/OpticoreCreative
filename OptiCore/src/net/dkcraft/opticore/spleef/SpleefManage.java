@@ -37,7 +37,7 @@ public class SpleefManage implements CommandExecutor {
 
 	private boolean spleefManage(CommandSender cs, String[] args) {
 		if (args.length == 0) {
-			cs.sendMessage(ChatColor.GREEN + "Spleef Manage:");
+			cs.sendMessage(ChatColor.YELLOW + "Available Spleef Manage Commands:");
 			cs.sendMessage(ChatColor.GREEN + " /spleefmanage world <world name>");
 			cs.sendMessage(ChatColor.GREEN + " /spleefmanage timer <int in seconds>");
 			cs.sendMessage(ChatColor.GREEN + " /spleefmanage floor <block/corner1/corner2>");

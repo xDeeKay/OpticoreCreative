@@ -1,4 +1,4 @@
-package net.dkcraft.opticore.stats;
+package net.dkcraft.opticore.stats.handlers;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,12 +14,12 @@ import org.bukkit.event.Listener;
 import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VotifierEvent;
 
-public class VoteStats implements Listener {
+public class VoteHandler implements Listener {
 
 	public Main plugin;
 	private MySQL mysql;
 	
-	public VoteStats(Main plugin) {
+	public VoteHandler(Main plugin) {
 		this.plugin = plugin;
 		this.mysql = this.plugin.mysql;
 	}

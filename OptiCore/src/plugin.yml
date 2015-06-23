@@ -57,6 +57,11 @@ commands:
         usage: /msg <player> <message>
         permission: opticore.msg
         permission-message: You do not have permission to do that.
+    label:
+        description: Manages labels.
+        usage: /label <args>
+        permission: opticore.label
+        permission-message: You do not have permission to do that.
     paint:
         description: Toggles paint mode.
         aliases: optipaint
@@ -257,3 +262,47 @@ permissions:
      description: Access to irc ban command.
    opticore.irc.unban:
      description: Access to irc unban command.
+   opticore.label.*:
+     description: Access to all label commands.
+     children:
+       opticore.label.create: true
+       opticore.label.delete: true
+       opticore.label.edit: true
+       opticore.label.move: true
+       opticore.label.teleport: true
+       opticore.label.list.*: true
+       opticore.label.purge.*: true
+   opticore.label.list.*:
+     description: Access to all label list commands.
+     children:
+       opticore.label.list.player: true
+       opticore.label.list.world: true
+       opticore.label.list.all: true
+   opticore.label.purge.*:
+     description: Access to all label purge commands.
+     children:
+       opticore.label.purge.player: true
+       opticore.label.purge.world: true
+       opticore.label.purge.all: true
+   opticore.label.create:
+     description: Access to label create command.
+   opticore.label.delete:
+     description: Access to label delete command.
+   opticore.label.edit:
+     description: Access to label edit command.
+   opticore.label.move:
+     description: Access to label move command.
+   opticore.label.teleport:
+     description: Access to label teleport command.
+   opticore.label.list.player:
+     description: Access to label list player command.
+   opticore.label.list.world:
+     description: Access to label list world command.
+   opticore.label.list.all:
+     description: Access to label list all command.
+   opticore.label.purge.player:
+     description: Access to label purge player command.
+   opticore.label.purge.world:
+     description: Access to label purge world command.
+   opticore.label.purge.all:
+     description: Access to label purge all command.
