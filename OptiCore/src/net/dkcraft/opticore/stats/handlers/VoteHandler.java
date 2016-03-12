@@ -3,9 +3,6 @@ package net.dkcraft.opticore.stats.handlers;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import net.dkcraft.opticore.Main;
-import net.dkcraft.opticore.util.MySQL;
-
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,6 +10,9 @@ import org.bukkit.event.Listener;
 
 import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VotifierEvent;
+
+import net.dkcraft.opticore.Main;
+import net.dkcraft.opticore.util.MySQL;
 
 public class VoteHandler implements Listener {
 

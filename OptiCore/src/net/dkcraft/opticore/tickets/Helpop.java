@@ -1,13 +1,13 @@
 package net.dkcraft.opticore.tickets;
 
-import net.dkcraft.opticore.Main;
-
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import net.dkcraft.opticore.Main;
 
 public class Helpop implements CommandExecutor {
 

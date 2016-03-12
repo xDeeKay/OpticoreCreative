@@ -4,15 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import net.dkcraft.opticore.Main;
-import net.dkcraft.opticore.util.MySQL;
-import net.dkcraft.opticore.util.Syntax;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+
+import net.dkcraft.opticore.Main;
+import net.dkcraft.opticore.util.MySQL;
+import net.dkcraft.opticore.util.Syntax;
 
 public class Stats implements CommandExecutor {
 

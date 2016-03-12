@@ -1,7 +1,5 @@
 package net.dkcraft.opticore.listeners;
 
-import net.dkcraft.opticore.Main;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -13,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 import de.diddiz.LogBlock.Consumer;
 import de.diddiz.LogBlock.LogBlock;
+import net.dkcraft.opticore.Main;
 
 public class PaintListener implements Listener {
 

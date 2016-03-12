@@ -4,10 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 
+import org.bukkit.scheduler.BukkitRunnable;
+
 import net.dkcraft.opticore.Main;
 import net.dkcraft.opticore.util.MySQL;
-
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class QuitHandler extends BukkitRunnable {
 

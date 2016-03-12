@@ -3,9 +3,6 @@ package net.dkcraft.opticore.spleef;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.dkcraft.opticore.Main;
-import net.dkcraft.opticore.util.Syntax;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -25,6 +22,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.PlayerInventory;
+
+import net.dkcraft.opticore.Main;
+import net.dkcraft.opticore.util.Syntax;
 
 public class SpleefListener implements Listener {
 

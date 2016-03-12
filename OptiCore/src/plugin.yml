@@ -180,6 +180,9 @@ permissions:
        opticore.use.commandblock: true
        opticore.use.barrier: true
        opticore.use.dragonegg: true
+       opticore.use.repeater: true
+       opticore.use.comparator: true
+       opticore.use.piston: true
    opticore.use.fire:
      description: Access to fire.
    opticore.use.water:
@@ -202,6 +205,12 @@ permissions:
      description: Access to barrier.
    opticore.use.dragonegg:
      description: Access to dragonegg.
+   opticore.use.repeater:
+     description: Access to repeaters.
+   opticore.use.comparator:
+     description: Access to comparators.
+   opticore.use.piston:
+     description: Access to pistons.
    opticore.bypass.*:
      description: Bypass all chat restrictions.
      children:

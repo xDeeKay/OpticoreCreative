@@ -1,7 +1,5 @@
 package net.dkcraft.opticore.listeners;
 
-import net.dkcraft.opticore.Main;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -12,6 +10,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.earth2me.essentials.Essentials;
+
+import net.dkcraft.opticore.Main;
 
 public class NotificationListener implements Listener {
 

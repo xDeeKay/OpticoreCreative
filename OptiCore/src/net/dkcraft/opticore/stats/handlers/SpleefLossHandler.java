@@ -3,10 +3,10 @@ package net.dkcraft.opticore.stats.handlers;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.bukkit.scheduler.BukkitRunnable;
+
 import net.dkcraft.opticore.Main;
 import net.dkcraft.opticore.util.MySQL;
-
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class SpleefLossHandler extends BukkitRunnable {
 

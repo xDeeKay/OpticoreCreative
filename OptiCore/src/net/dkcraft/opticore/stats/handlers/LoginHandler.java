@@ -5,15 +5,14 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import net.dkcraft.opticore.Main;
-import net.dkcraft.opticore.util.MySQL;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
+import net.dkcraft.opticore.Main;
+import net.dkcraft.opticore.util.MySQL;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 

@@ -1,9 +1,5 @@
 package net.dkcraft.opticore.spleef;
 
-import net.dkcraft.opticore.Main;
-import net.dkcraft.opticore.util.Methods;
-import net.dkcraft.opticore.util.Syntax;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -12,6 +8,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
+
+import net.dkcraft.opticore.Main;
+import net.dkcraft.opticore.util.Methods;
+import net.dkcraft.opticore.util.Syntax;
 
 public class SpleefManage implements CommandExecutor {
 

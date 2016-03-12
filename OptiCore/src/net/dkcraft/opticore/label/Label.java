@@ -1,7 +1,5 @@
 package net.dkcraft.opticore.label;
 
-import net.dkcraft.opticore.Main;
-
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -10,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+
+import net.dkcraft.opticore.Main;
 
 public class Label implements CommandExecutor {
 

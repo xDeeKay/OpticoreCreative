@@ -1,7 +1,5 @@
 package net.dkcraft.opticore.listeners;
 
-import net.dkcraft.opticore.Main;
-
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,6 +8,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+
+import net.dkcraft.opticore.Main;
 
 public class FreezeListener implements Listener {
 

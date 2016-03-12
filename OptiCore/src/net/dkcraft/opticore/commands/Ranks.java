@@ -6,13 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import net.dkcraft.opticore.Main;
-import net.dkcraft.opticore.util.Syntax;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+
+import net.dkcraft.opticore.Main;
+import net.dkcraft.opticore.util.Syntax;
 
 public class Ranks implements CommandExecutor {
 

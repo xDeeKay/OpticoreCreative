@@ -6,7 +6,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-import net.dkcraft.opticore.Main;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import de.diddiz.LogBlock.LogBlock;
+import net.dkcraft.opticore.announcement.AnnouncementMethods;
 import net.dkcraft.opticore.commands.Aliases;
 import net.dkcraft.opticore.commands.Channel;
 import net.dkcraft.opticore.commands.Classic;
@@ -35,11 +44,12 @@ import net.dkcraft.opticore.listeners.NotificationListener;
 import net.dkcraft.opticore.listeners.PaintListener;
 import net.dkcraft.opticore.listeners.PlayerAliasConfig;
 import net.dkcraft.opticore.listeners.PlayerIPConfig;
-import net.dkcraft.opticore.spleef.SpleefMethods;
-import net.dkcraft.opticore.spleef.SpleefRunnable;
+import net.dkcraft.opticore.listeners.StaffChat;
 import net.dkcraft.opticore.spleef.Spleef;
 import net.dkcraft.opticore.spleef.SpleefListener;
 import net.dkcraft.opticore.spleef.SpleefManage;
+import net.dkcraft.opticore.spleef.SpleefMethods;
+import net.dkcraft.opticore.spleef.SpleefRunnable;
 import net.dkcraft.opticore.stats.Stats;
 import net.dkcraft.opticore.stats.StatsListener;
 import net.dkcraft.opticore.stats.handlers.BlockBreakHandler;
@@ -61,16 +71,6 @@ import net.dkcraft.opticore.util.ListStore;
 import net.dkcraft.opticore.util.Methods;
 import net.dkcraft.opticore.util.MySQL;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import de.diddiz.LogBlock.LogBlock;
-
 public class Main extends JavaPlugin {
 
 	public Main instance;
@@ -81,11 +81,13 @@ public class Main extends JavaPlugin {
 	public TicketMethods ticket;
 	public ColouredNames colouredNames;
 	public LabelMethods label;
+	public AnnouncementMethods announcement;
 
 	public static ListStore ranks;
 
 	public HashMap<String, String> chatRepeat = new HashMap<String, String>();
 	public HashMap<String, String> msg = new HashMap<String, String>();
+	public HashMap<String, String> msgChannel = new HashMap<String, String>();
 	public ArrayList<String> classic = new ArrayList<String>();
 	public ArrayList<String> deafen = new ArrayList<String>();
 	public ArrayList<String> freeze = new ArrayList<String>();
@@ -131,6 +133,7 @@ public class Main extends JavaPlugin {
 		ticket = new TicketMethods(this);
 		colouredNames = new ColouredNames(this);
 		label = new LabelMethods(this);
+		announcement = new AnnouncementMethods(this);
 
 		final PluginManager pm = getServer().getPluginManager();
 
@@ -191,6 +194,7 @@ public class Main extends JavaPlugin {
 		pm.registerEvents(new PaintListener(this, (LogBlock)plugin), this);
 		pm.registerEvents(new PlayerAliasConfig(this), this);
 		pm.registerEvents(new PlayerIPConfig(this), this);
+		pm.registerEvents(new StaffChat(this), this);
 
 		pm.registerEvents(new StatsListener(this), this);
 		pm.registerEvents(new LoginHandler(this), this);
@@ -202,10 +206,9 @@ public class Main extends JavaPlugin {
 
 		pm.registerEvents(new ColouredNames(this), this);
 		
-		//pm.registerEvents(new SignFixerino(this), this);
-
 		ticket.setupScoreboard();
 		mysql.openConnection();
+		announcement.loadMessages();
 	}
 
 	public void onDisable() {

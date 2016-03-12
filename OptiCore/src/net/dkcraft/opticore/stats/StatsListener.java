@@ -1,15 +1,5 @@
 package net.dkcraft.opticore.stats;
 
-import net.dkcraft.opticore.Main;
-import net.dkcraft.opticore.spleef.SpleefMethods;
-import net.dkcraft.opticore.stats.handlers.BlockBreakHandler;
-import net.dkcraft.opticore.stats.handlers.BlockPlaceHandler;
-import net.dkcraft.opticore.stats.handlers.ChatHandler;
-import net.dkcraft.opticore.stats.handlers.QuitHandler;
-import net.dkcraft.opticore.stats.handlers.SpleefLossHandler;
-import net.dkcraft.opticore.stats.handlers.SpleefWinHandler;
-import net.dkcraft.opticore.stats.handlers.TimeOnlineHandler;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,6 +9,16 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+
+import net.dkcraft.opticore.Main;
+import net.dkcraft.opticore.spleef.SpleefMethods;
+import net.dkcraft.opticore.stats.handlers.BlockBreakHandler;
+import net.dkcraft.opticore.stats.handlers.BlockPlaceHandler;
+import net.dkcraft.opticore.stats.handlers.ChatHandler;
+import net.dkcraft.opticore.stats.handlers.QuitHandler;
+import net.dkcraft.opticore.stats.handlers.SpleefLossHandler;
+import net.dkcraft.opticore.stats.handlers.SpleefWinHandler;
+import net.dkcraft.opticore.stats.handlers.TimeOnlineHandler;
 
 public class StatsListener implements Listener {
 

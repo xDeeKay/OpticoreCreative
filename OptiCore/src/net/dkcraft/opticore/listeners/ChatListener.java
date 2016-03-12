@@ -74,13 +74,21 @@ public class ChatListener implements Listener {
 			}
 		}
 
-		if (plugin.staffChat.contains(playerName)) {
-			if (!plugin.deafen.contains(playerName)) {
-				for (Player staff : Bukkit.getOnlinePlayers()) {
-					if (staff.hasPermission("opticore.staffchat")) {
-						staff.sendMessage(ChatColor.BLACK + "[S] " + getRank(player) + playerName + ChatColor.WHITE + ": " + message);
-						event.setCancelled(true);
-					}
+		if (plugin.msgChannel.containsKey(playerName)) {
+
+			@SuppressWarnings("deprecation")
+			Player target = Bukkit.getPlayer(plugin.msgChannel.get(playerName));
+
+			if (target != null) {
+				if (!plugin.deafen.contains(target.getName())) {
+					
+					event.setCancelled(true);
+
+					target.sendMessage(ChatColor.LIGHT_PURPLE + "From " + playerName + ": " + message);
+					player.sendMessage(ChatColor.LIGHT_PURPLE + "To " + target.getName() + ": " + message);
+
+				} else {
+					player.sendMessage(ChatColor.RED + "This player is deafened and won't receive your message.");
 				}
 			}
 		}
@@ -105,12 +113,5 @@ public class ChatListener implements Listener {
 				}
 			}
 		}
-	}
-
-	public String getRank(Player player) {
-		return player.hasPermission("opticore.staffchat.owner") ? ChatColor.WHITE + "[" + ChatColor.DARK_RED + "Owner" + ChatColor.WHITE + "] " + ChatColor.DARK_RED :
-			player.hasPermission("opticore.staffchat.admin") ? ChatColor.WHITE + "[" + ChatColor.BLUE + "Admin" + ChatColor.WHITE + "] " + ChatColor.BLUE :
-				player.hasPermission("opticore.staffchat.operator") ? ChatColor.WHITE + "[" + ChatColor.AQUA + "Operator" + ChatColor.WHITE + "] " + ChatColor.AQUA :
-					player.hasPermission("opticore.staffchat.developer") ? ChatColor.WHITE + "[" + ChatColor.DARK_GREEN + "Developer" + ChatColor.WHITE + "] " + ChatColor.DARK_GREEN : "{No rank}";
 	}
 }

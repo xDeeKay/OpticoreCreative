@@ -5,8 +5,8 @@ import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
-import org.bukkit.FireworkEffect.Type;
 import org.bukkit.FireworkEffect;
+import org.bukkit.FireworkEffect.Type;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -419,5 +419,4 @@ public class SpleefMethods {
 			}
 		}
 	}
-
 }

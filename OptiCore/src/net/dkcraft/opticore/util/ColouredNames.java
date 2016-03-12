@@ -1,7 +1,5 @@
 package net.dkcraft.opticore.util;
 
-import net.dkcraft.opticore.Main;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -11,6 +9,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+
+import net.dkcraft.opticore.Main;
 
 public class ColouredNames implements Listener {
 
@@ -33,6 +33,7 @@ public class ColouredNames implements Listener {
 
 	public void runNameTagUpdater() {
 		new BukkitRunnable() {
+			@SuppressWarnings("deprecation")
 			public void run() {
 
 				for (Player player : Bukkit.getOnlinePlayers()) {

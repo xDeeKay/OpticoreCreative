@@ -2,15 +2,15 @@ package net.dkcraft.opticore.commands;
 
 import java.util.List;
 
-import net.dkcraft.opticore.Main;
-import net.dkcraft.opticore.util.Syntax;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+
+import net.dkcraft.opticore.Main;
+import net.dkcraft.opticore.util.Syntax;
 
 public class PersonalWorld implements CommandExecutor {
 

@@ -6,9 +6,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import net.dkcraft.opticore.Main;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
-import net.dkcraft.opticore.Main;
 
 public class Methods {
 

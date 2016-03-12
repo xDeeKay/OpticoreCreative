@@ -5,14 +5,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.dkcraft.opticore.Main;
-
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+
+import net.dkcraft.opticore.Main;
 
 public class PlayerAliasConfig implements Listener {
 

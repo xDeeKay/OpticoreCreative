@@ -1,15 +1,15 @@
 package net.dkcraft.opticore.commands;
 
-import net.dkcraft.opticore.Main;
-import net.dkcraft.opticore.util.InventoryGUI;
-import net.dkcraft.opticore.util.Syntax;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import net.dkcraft.opticore.Main;
+import net.dkcraft.opticore.util.InventoryGUI;
+import net.dkcraft.opticore.util.Syntax;
 
 public class Classic implements CommandExecutor {
 

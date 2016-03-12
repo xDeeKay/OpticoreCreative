@@ -1,7 +1,5 @@
 package net.dkcraft.opticore.util;
 
-import net.dkcraft.opticore.Main;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -14,6 +12,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import net.dkcraft.opticore.Main;
 
 public class InventoryGUI implements Listener {
 
@@ -116,6 +116,7 @@ public class InventoryGUI implements Listener {
 		player.openInventory(inv);
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();

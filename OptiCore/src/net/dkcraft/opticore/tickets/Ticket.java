@@ -1,8 +1,5 @@
 package net.dkcraft.opticore.tickets;
 
-import net.dkcraft.opticore.Main;
-import net.dkcraft.opticore.util.Syntax;
-
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,6 +7,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import net.dkcraft.opticore.Main;
+import net.dkcraft.opticore.util.Syntax;
 
 public class Ticket implements CommandExecutor {
 

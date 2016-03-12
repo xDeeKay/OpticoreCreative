@@ -4,6 +4,12 @@ mysql:
   password: pass
   host: localhost
   database: database
+announcement:
+  interval: 200
+  messages:
+    - This is message 1
+    - This is message 2
+    - This is message 3
 PersonalWorlds: {}
 spleef:
   world: Spleef

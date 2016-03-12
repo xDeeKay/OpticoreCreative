@@ -1,7 +1,5 @@
 package net.dkcraft.opticore.listeners;
 
-import net.dkcraft.opticore.Main;
-
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BrewingStand;
@@ -19,6 +17,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.inventory.InventoryHolder;
+
+import net.dkcraft.opticore.Main;
 
 public class ItemDropListener implements Listener {
 

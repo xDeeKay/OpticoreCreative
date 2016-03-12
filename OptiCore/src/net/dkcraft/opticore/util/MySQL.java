@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import net.dkcraft.opticore.Main;
-
 import org.bukkit.Bukkit;
+
+import net.dkcraft.opticore.Main;
 
 public class MySQL {
 

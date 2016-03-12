@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="C:/Users/Dion/Desktop/bukkit.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Dion/Desktop/Essentials.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Dion/Desktop/Votifier.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Dion/Desktop/LogBlock.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Dion/Desktop/PermissionsEx.jar"/>
+	<classpathentry kind="lib" path="E:/Programs/Eclipse/Imports/1.9/bukkit-1.9-BT49.jar"/>
+	<classpathentry kind="lib" path="E:/Programs/Eclipse/Imports/Essentials.jar"/>
+	<classpathentry kind="lib" path="E:/Programs/Eclipse/Imports/LogBlock.jar"/>
+	<classpathentry kind="lib" path="E:/Programs/Eclipse/Imports/PermissionsEx.jar"/>
+	<classpathentry kind="lib" path="E:/Programs/Eclipse/Imports/Votifier.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

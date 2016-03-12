@@ -2,8 +2,6 @@ package net.dkcraft.opticore.label;
 
 import java.util.Set;
 
-import net.dkcraft.opticore.Main;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
@@ -13,6 +11,8 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+
+import net.dkcraft.opticore.Main;
 
 public class LabelMethods {
 
